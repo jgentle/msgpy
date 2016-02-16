@@ -1,6 +1,9 @@
 import os
 import csv
-import copy
+# import copy
+
+
+print "Awwwwww SNAP! Time to make this data taste better!"
 
 
 # VARIABLES
@@ -96,7 +99,7 @@ def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
 
 # CALCULATE SCALARS.
 def CalculateScalarsPerRun(wells_data, scalars_headers, scalars_data, tablelink_headers, tablelink_data):
-    print "I am calculating scalars..."
+    print "Here we go! Calculating some tasty scalar data!"
     # print wells_data
     # print scalars_headers
     # print scalars_data
@@ -177,7 +180,7 @@ def CalculateScalarsPerRun(wells_data, scalars_headers, scalars_data, tablelink_
     #                     # Verify output.
     #                     # SEPARATE TASK
     #                     # Now run the files through modflow (separate script from this one).
-
+    print "Damn! That WAS some tasty data!"
 
 
 # INPUTS
@@ -277,6 +280,7 @@ WriteWellsListToCSV(csv_output_location, wells_csv_output_filename, wells_header
 WriteDictToCSV(csv_output_location, scalars_csv_output_filename, scalars_headers, scalars_data)
 WriteDictToCSV(csv_output_location, tablelink_csv_output_filename, tablelink_headers, tablelink_data)
 
+print "Say WRITE THE DATA again! I dare you!"
 
 # CULLED CODE:
 # 
