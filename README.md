@@ -1,6 +1,8 @@
 # msgpy
-Modflow Scalar Generation Python Script
+Modflow Scalar Generation for Python
 
-''' For use in generating new wel.dat input files based on predetermined scalar values. '''
+# usage
+For use in generating new wel.dat input files based on predetermined scalar values.
+
 
 
