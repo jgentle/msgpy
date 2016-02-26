@@ -99,34 +99,78 @@ def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
 
 
 # CALCULATE SCALARS.
-def CalculateScalarsPerRun(wells_data, scalars_headers, scalars_data, tablelink_headers, tablelink_data):
+def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data):
     print "Here we go! Calculating some tasty scalar data!"
-    # print wells_data
-    # print scalars_headers
-    # print scalars_data
-    # print tablelink_headers
-    # print tablelink_data
+    print " "
+
+    # SCALAR DATA
+    # print "============================="
+    # print "Scalar Data:"
     # print " "
+    # # print scalars_headers
+    # # print scalars_data
+    # for scalar_series in scalars_data:
+    #     print "sourceFile: ", scalar_series["sourceFile"]
+    #     print "CZ1: ", scalar_series["CZ1"]
+    #     print "CZ2: ", scalar_series["CZ2"]
+    #     print "CZ3: ", scalar_series["CZ3"]
+    #     print "CZ4: ", scalar_series["CZ4"]
+    #     print "CZ5: ", scalar_series["CZ5"]
+    #     print "CZ6: ", scalar_series["CZ6"]
+    #     print "CZ7: ", scalar_series["CZ7"]
+    #     print "CZ8: ", scalar_series["CZ8"]
+    #     print "CZ9: ", scalar_series["CZ9"]
+    #     print "CZ10: ", scalar_series["CZ10"]
+    #     print "CZ11: ", scalar_series["CZ11"]
+    #     print " "
+
+    # WELLS DATA
+    # print "============================="
+    # print "Wells Data:"
+    # print " "
+    # # print wells_data
+    # for wells_row in wells_data:
+    #     # print wells_row
+    #     print "Layer: ", wells_row[0]
+    #     print "Row: ", wells_row[1]
+    #     print "Col: ", wells_row[2]
+    #     print "Pumping: ", wells_row[3]
+    #     print " "
+
+    # TABLELINK DATA
+    # print "============================="
+    # print "Tablelink Data:"
+    # print " "
+    # # print tablelink_headers
+    # # print tablelink_data
+    # for tablelink_row in tablelink_data:
+    #     print "Row: ", tablelink_row["Row"]
+    #     print "Col: ", tablelink_row["Col"]
+    #     print "Kzone: ", tablelink_row["Kzone"]
+    #     print " "
+
     # Need to refactor this using new var names.
-    for row in wells_data:
-        current_kzone = None
-        current_kzone_index = []
-        current_kzone_row = row[1]
-        current_kzone_column = row[2]
-        original_scalar = row[3]
-        current_scalar = None
-        # Need to check that the values are floats.
-        # print current_kzone_row
-        # print type(current_kzone_row)
-        # print current_kzone_column
-        # print type(current_kzone_column)
-        # print original_scalar
-        # print type(original_scalar)
-        # print current_scalar
-        # print " "
-        # Get the row and column index for each Kzone.
-        # for row in tablelink_data:
-            # print row
+    # for row in wells_data:
+    #     current_kzone = None
+    #     current_kzone_index = []
+    #     current_kzone_row = row[1]
+    #     current_kzone_column = row[2]
+    #     original_scalar = row[3]
+    #     current_scalar = None
+    #     # Need to check that the values are floats.
+    #     print "Current Wells Data:"
+    #     print "Row: " , current_kzone_row
+    #     print type(current_kzone_row)
+    #     print "Col: " , current_kzone_column
+    #     print type(current_kzone_column)
+    #     print "Original Scalar: " , original_scalar
+    #     print type(original_scalar)
+    #     print "Current Scalar: " , current_scalar
+    #     print " "
+    #     # Get the row and column index for each Kzone.
+    #     for row in tablelink_data:
+    #         print "Current Tablelink Data:"
+    #         print row
             # print row['Kzone']
             # if row[0] == current_kzone_row:
             #     if row[1] == current_kzone_column:
@@ -181,6 +225,70 @@ def CalculateScalarsPerRun(wells_data, scalars_headers, scalars_data, tablelink_
     #                     # Verify output.
     #                     # SEPARATE TASK
     #                     # Now run the files through modflow (separate script from this one).
+
+    # ALGORITHM
+    for scalar_series in scalars_data:
+        # get a ref to the sourcedata run hash.
+        current_datasource = scalar_series["sourceFile"]
+        # iterate over wells data.
+        for wells_row in wells_data:
+            # get the current cell Row/Col values.
+            current_row = wells_row[1]
+            current_col = wells_row[2]
+            current_scalar = wells_row[3]
+            # print "* * * * * * * * * * * * * * *"
+            # print current_row, current_col, current_scalar
+            # print " "
+            # iterate through tablelink for match in row.
+            for tablelink_row in tablelink_data:
+                # print "============================="
+                # print tablelink_row, current_row, current_col, current_scalar
+                # print " "
+                # iterate through tablelink for match in col.
+                if current_row == int(tablelink_row["Row"]):
+                    # print "----------------------------------"
+                    # print current_row, tablelink_row["Row"]
+                    # print " "
+                    # identify matches.
+                    if current_col == int(tablelink_row["Col"]):
+                        print "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                        print current_col, tablelink_row["Col"]
+                        print "MATCH!"
+                        print "For the current cell at Row ", current_row, " in Col ", current_col, " the Kzone is ", tablelink_row["Kzone"]
+                        # Lookup the KZone in the current scalar_series.
+                        # Calculate the new scalar value.
+                        # Append the new wels row data to a temp object for this scalar_series.
+                        # Write the final wels data object out after completing iteration of scalars_series.
+                        # print scalar_series
+                        if int(tablelink_row["Kzone"]) == 0:
+                            print "The new scalar is null."
+                        elif int(tablelink_row["Kzone"]) == 1:
+                            print "The new scalar is ", scalar_series["CZ1"]
+                        elif int(tablelink_row["Kzone"]) == 2:
+                            print "The new scalar is ", scalar_series["CZ2"]
+                        elif int(tablelink_row["Kzone"]) == 3:
+                            print "The new scalar is ", scalar_series["CZ3"]
+                        elif int(tablelink_row["Kzone"]) == 4:
+                            print "The new scalar is ", scalar_series["CZ4"]
+                        elif int(tablelink_row["Kzone"]) == 5:
+                            print "The new scalar is ", scalar_series["CZ5"]
+                        elif int(tablelink_row["Kzone"]) == 6:
+                            print "The new scalar is ", scalar_series["CZ6"]
+                        elif int(tablelink_row["Kzone"]) == 7:
+                            print "The new scalar is ", scalar_series["CZ7"]
+                        elif int(tablelink_row["Kzone"]) == 8:
+                            print "The new scalar is ", scalar_series["CZ8"]
+                        elif int(tablelink_row["Kzone"]) == 9:
+                            print "The new scalar is ", scalar_series["CZ9"]
+                        elif int(tablelink_row["Kzone"]) == 10:
+                            print "The new scalar is ", scalar_series["CZ10"]
+                        elif int(tablelink_row["Kzone"]) == 11:
+                            print "The new scalar is ", scalar_series["CZ11"]
+                        else:
+                            print "No matching scalar value found"
+
+
+    print " "
     print "That WAS some tasty data!"
 
 
@@ -249,10 +357,12 @@ tablelink_csv_output_filename = "/NewTablelink.csv"
 # print "wells_list_new:"
 # print wells_list_new
 
-CalculateScalarsPerRun(wells_data, scalars_headers, scalars_data, tablelink_headers, tablelink_data)
+CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
 
 
 # OUTPUT
+print " "
+print "Writing out new data..."
 
 # Testing.
 # WriteListToCSV(csv_output_file, test_csv_columns, csv_data_list)
@@ -264,5 +374,6 @@ WriteWellsListToCSV(csv_output_location, wells_csv_output_filename, wells_header
 WriteDictToCSV(csv_output_location, scalars_csv_output_filename, scalars_headers, scalars_data)
 WriteDictToCSV(csv_output_location, tablelink_csv_output_filename, tablelink_headers, tablelink_data)
 
+print " "
 print "Say WRITE THE DATA again! I dare you!"
 
