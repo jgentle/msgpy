@@ -13,6 +13,7 @@ csv_input_location = currentPath + csv_input_subdirectory
 csv_output_subdirectory = "/csv_output"
 csv_output_location = currentPath + csv_output_subdirectory
 
+# METHODS
 
 # LISTS
 def ReadCSVasList(csv_file):
@@ -180,7 +181,7 @@ def CalculateScalarsPerRun(wells_data, scalars_headers, scalars_data, tablelink_
     #                     # Verify output.
     #                     # SEPARATE TASK
     #                     # Now run the files through modflow (separate script from this one).
-    print "Damn! That WAS some tasty data!"
+    print "That WAS some tasty data!"
 
 
 # INPUTS
@@ -239,28 +240,11 @@ ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 # print " "
 tablelink_csv_output_filename = "/NewTablelink.csv"
 
-# List Data
-# test_csv_columns = ['Row', 'Name', 'Country']
-# csv_data_list = [['1', 'Alex', 'India'], ['2', 'Ben', 'USA'], ['3', 'Shri Ram', 'India'], ['4', 'Smith', 'USA'], ['5', 'Yuva Raj', 'India'], ['6', 'Suresh', 'India']]
-# csv_output_filename = "/NewData.csv"
-
-# Dict Data
-# Hard coded test data
-# csv_columns = ['Row', 'Name', 'Country']
-# dict_data = [
-#     {'Row': 1, 'Name': 'Alex', 'Country': 'India'},
-#     {'Row': 2, 'Name': 'Ben', 'Country': 'USA'},
-#     {'Row': 3, 'Name': 'Shri Ram', 'Country': 'India'},
-#     {'Row': 4, 'Name': 'Smyth', 'Country': 'USA'},
-#     {'Row': 5, 'Name': 'Yuva Raj', 'Country': 'India'},
-#     ]
-# csv_output_filename = "/EvenMoreNames.csv"
-
 
 # RUN CALCULATIONS
 
 # Step 1: Make copy of wells data.
-# Is this necessary??
+# Is this necessary?? I don't think it is...
 # wells_data_new = copy.deepcopy(wells_data)
 # print "wells_list_new:"
 # print wells_list_new
@@ -282,34 +266,3 @@ WriteDictToCSV(csv_output_location, tablelink_csv_output_filename, tablelink_hea
 
 print "Say WRITE THE DATA again! I dare you!"
 
-# CULLED CODE:
-# 
-# Working with List objects:
-# 
-# Append data to list at specific index:
-# 
-# csv_data_list.append(['6', 'Suresh', 'India'])
-# print "Appended list: "
-# print csv_data_list
-# print " "
-# 
-#
-# Need to load wel.csv data as a List, not a Dict.
-# 
-# csv_wells = currentPath + "/wel.csv"
-# # print csv_wells
-# # ReadCSVasDict(csv_wells)
-# # wells_headers = ['Layer', 'Row', 'Col', 'Pumping']
-# wells_headers = []
-# wells_data = []
-# ReadCSVasDict(csv_wells, None, wells_data)
-# print "Current wells data: "
-# print wells_data
-# print " "
-# wells_csv_output_filename = "/NewWells.csv"
-#
-#
-# This method wont work for wells, wells have no headers and strange initial 2 rows.
-# Should also remove first 2 rows before processing data, then inject them back in for writing to file.
-#
-# WriteDictToCSV(csv_output_location, wells_csv_output_filename, wells_headers, wells_data)
