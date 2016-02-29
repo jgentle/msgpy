@@ -8,25 +8,21 @@ csv_input_location = currentPath + csv_input_subdirectory
 csv_output_subdirectory = "/csv_output/"
 csv_output_location = currentPath + csv_output_subdirectory
 
-# DATA INPUTS
-csv_wells = csv_input_location + "wel.csv"
+# DATA INPUTS AND OUTPUTS
 wells_headers = []
-csv_scalars = csv_input_location + "scalars.csv"
-scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 scalars_data = []
-
-# DATA OUTPUTS
-wells_csv_output_filename = "NewWells.csv"
+tablelink_data = []
 wells_output_headers = []
 clean_wells_output_headers = []
-scalars_csv_output_filename = "NewScalars.csv"
+
+# ONLY EDIT THESE TO REFLECT THE SOURCE FILES AND HEADERS.
+csv_wells = csv_input_location + "wel.csv"
+csv_scalars = csv_input_location + "scalars.csv"
 csv_tablelink = csv_input_location + "tablelink.csv"
+scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 tablelink_headers = ['Row', 'Col', 'Kzone']
-tablelink_data = []
-tablelink_csv_output_filename = "NewTablelink.csv"
 
 # MODULE METHODS
-
 
 # HANDLING LISTS
 def ReadCSVasList(csv_file):
@@ -41,6 +37,7 @@ def ReadCSVasList(csv_file):
     return
 
 
+# Generic Method for Reference - Unused by Module.
 def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
     print csv_file_path, csv_filename, csv_columns, data_list
     csv_file = csv_file_path + csv_filename
@@ -92,6 +89,7 @@ def ReadCSVasDict(csv_file, headers, data_target):
     return
 
 
+# Generic Method for Reference - Unused by Module.
 def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
     csv_file = csv_file_path + csv_filename
     columns = csv_columns
