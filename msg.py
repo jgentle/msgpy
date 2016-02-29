@@ -19,21 +19,24 @@ clean_wells_output_headers = []
 csv_wells = csv_input_location + "wel.csv"
 csv_scalars = csv_input_location + "scalars.csv"
 csv_tablelink = csv_input_location + "tablelink.csv"
-scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
+scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4',
+                   'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 tablelink_headers = ['Row', 'Col', 'Kzone']
 
 # MODULE METHODS
+
 
 # HANDLING LISTS
 def ReadCSVasList(csv_file):
     try:
         with open(csv_file) as csvfile:
-            reader = csv.reader(csvfile, dialect='excel', quoting=csv.QUOTE_NONNUMERIC)
+            reader = csv.reader(csvfile, dialect='excel',
+                                quoting=csv.QUOTE_NONNUMERIC)
             datalist = []
             datalist = list(reader)
             return datalist
     except IOError as (errno, strerror):
-            print("I/O error({0}): {1}".format(errno, strerror))
+        print("I/O error({0}): {1}".format(errno, strerror))
     return
 
 
@@ -45,7 +48,8 @@ def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
     data = data_list
     try:
         with open(csv_file, 'w') as csvfile:
-            writer = csv.writer(csvfile, dialect='excel', quoting=csv.QUOTE_NONE)
+            writer = csv.writer(csvfile, dialect='excel',
+                                quoting=csv.QUOTE_NONE)
             if columns:
                 for header_row in columns:
                     writer.writerow(header_row)
@@ -53,7 +57,7 @@ def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
                 for data_row in data:
                     writer.writerow(data_row)
     except IOError as (errno, strerror):
-            print("I/O error({0}): {1}".format(errno, strerror))
+        print("I/O error({0}): {1}".format(errno, strerror))
     return
 
 
@@ -64,7 +68,8 @@ def WriteWellsListToCSV(csv_file_path, csv_filename, csv_columns, data_list, wel
 
     try:
         with open(csv_file, 'w') as csvfile:
-            writer = csv.writer(csvfile, dialect='excel', quoting=csv.QUOTE_NONE)
+            writer = csv.writer(csvfile, dialect='excel',
+                                quoting=csv.QUOTE_NONE)
             if columns:
                 writer.writerow(columns)
             for header_row in wells_output_headers:
@@ -72,7 +77,7 @@ def WriteWellsListToCSV(csv_file_path, csv_filename, csv_columns, data_list, wel
             for data_row in data:
                 writer.writerow(data_row)
     except IOError as (errno, strerror):
-            print("I/O error({0}): {1}".format(errno, strerror))
+        print("I/O error({0}): {1}".format(errno, strerror))
     return
 
 
@@ -84,8 +89,8 @@ def ReadCSVasDict(csv_file, headers, data_target):
             for row in reader:
                 data_target.append(row)
     except IOError as (errno, strerror):
-            print("I/O error({0}): {1}".format(errno, strerror))
-            print " "
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
     return
 
 
@@ -100,8 +105,8 @@ def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
             for data in dict_data:
                 writer.writerow(data)
     except IOError as (errno, strerror):
-            print("I/O error({0}): {1}".format(errno, strerror))
-            print " "
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
     return
 
 
@@ -157,7 +162,7 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
                             new_scalar = scalar_series["CZ2"]
                         elif new_kzone == 3:
                             new_scalar = scalar_series["CZ3"]
-                        elif new_kzone== 4:
+                        elif new_kzone == 4:
                             new_scalar = scalar_series["CZ4"]
                         elif new_kzone == 5:
                             new_scalar = scalar_series["CZ5"]
@@ -181,8 +186,10 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
             if (new_pumping == 0.0) or (new_pumping == -0.0):
                 new_pumping = 0
 
-            # Append the new wels row data to a temp object for this scalar_series.
-            new_wells_row = [current_layer, current_row, current_col, new_pumping]
+            # Append the new wels row data to a temp object for this
+            # scalar_series.
+            new_wells_row = [current_layer,
+                             current_row, current_col, new_pumping]
             new_wells_data.append(new_wells_row)
 
         # Derive filename for new wells data object.
@@ -191,7 +198,8 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
         new_wells_filename = new_wells_file_prefix + ".dat"
 
         # Write the final wells data object to the new file.
-        WriteWellsListToCSV(csv_output_location, new_wells_filename, wells_headers, new_wells_data, clean_wells_output_headers)
+        WriteWellsListToCSV(csv_output_location, new_wells_filename,
+                            wells_headers, new_wells_data, clean_wells_output_headers)
 
 
 # START MODULE.
@@ -201,7 +209,8 @@ print "Here we go! Calculating some tasty new scalar data!"
 wells_data = ReadCSVasList(csv_wells)
 
 # Trim headers from wells data
-# Push first two rows of wells data to new List for use when writing back out to file.
+# Push first two rows of wells data to new List for use when writing back
+# out to file.
 wells_output_headers.append(wells_data[0])
 wells_output_headers.append(wells_data[1])
 
@@ -219,7 +228,8 @@ ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 
 # RUN CALCULATIONS
-CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
+CalculateScalarsPerRun(scalars_headers, scalars_data,
+                       wells_data, tablelink_headers, tablelink_data)
 
 # END MODULE.
 print "MMM, Mmm, mmm! That WAS some tasty data!"
