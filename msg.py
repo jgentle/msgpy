@@ -47,13 +47,15 @@ def ReadCSVasList(csv_file):
             datalist = list(reader)
             return datalist
     except IOError as (errno, strerror):
-        print("I/O error({0}): {1}".format(errno, strerror))
+        # print("I/O error({0}): {1}".format(errno, strerror))
+        # print " "
+        break
     return
 
 
 # Generic Method for Reference - Unused by Module.
 def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
-    print csv_file_path, csv_filename, csv_columns, data_list
+    #print csv_file_path, csv_filename, csv_columns, data_list
     csv_file = csv_file_path + csv_filename
     columns = csv_columns
     data = data_list
@@ -68,7 +70,9 @@ def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
                 for data_row in data:
                     writer.writerow(data_row)
     except IOError as (errno, strerror):
-        print("I/O error({0}): {1}".format(errno, strerror))
+        # print("I/O error({0}): {1}".format(errno, strerror))
+        # print " "
+        break
     return
 
 
@@ -88,7 +92,9 @@ def WriteWellsListToCSV(csv_file_path, csv_filename, csv_columns, data_list, wel
             for data_row in data:
                 writer.writerow(data_row)
     except IOError as (errno, strerror):
-        print("I/O error({0}): {1}".format(errno, strerror))
+        # print("I/O error({0}): {1}".format(errno, strerror))
+        # print " "
+        break
     return
 
 
@@ -100,8 +106,9 @@ def ReadCSVasDict(csv_file, headers, data_target):
             for row in reader:
                 data_target.append(row)
     except IOError as (errno, strerror):
-        print("I/O error({0}): {1}".format(errno, strerror))
-        print " "
+        # print("I/O error({0}): {1}".format(errno, strerror))
+        # print " "
+        break
     return
 
 
@@ -116,8 +123,9 @@ def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
             for data in dict_data:
                 writer.writerow(data)
     except IOError as (errno, strerror):
-        print("I/O error({0}): {1}".format(errno, strerror))
-        print " "
+        # print("I/O error({0}): {1}".format(errno, strerror))
+        # print " "
+        break
     return
 
 
@@ -218,7 +226,7 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
 
 # START MODULE.
-print "Here we go! Calculating some tasty new scalar data!"
+#print "Here we go! Calculating some tasty new scalar data!"
 
 # LOAD DATA SOURCES.
 
@@ -253,4 +261,4 @@ ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
 
 # END MODULE.
-print "MMM, Mmm, mmm! That WAS some tasty data!"
+# print "MMM, Mmm, mmm! That WAS some tasty data!"
