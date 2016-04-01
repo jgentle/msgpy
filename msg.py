@@ -1,30 +1,41 @@
 import os
 import csv
+from decimal import *
 
-# MODULE VARIABLES - DO NOT EDIT.
-currentPath = os.getcwd()
+
+# INPUT VARS - EDIT THESE
 csv_input_subdirectory = "/csv_input/"
-csv_input_location = currentPath + csv_input_subdirectory
 csv_output_subdirectory = "/csv_output/"
+# TEST DATA Short
+#csv_input_file_wells = "wel.csv"
+#csv_input_file_scalars = "scalars.csv"
+#csv_input_file_tablelink = "tablelink.csv"
+# TEST DATA Long
+csv_input_file_wells = "wel_0.csv"
+csv_input_file_scalars = "scalars_0.csv"
+csv_input_file_tablelink = "tablelink_0.csv"
+# TEST DATA Configs
+scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
+tablelink_headers = ['Row', 'Col', 'Kzone']
+
+# MODULE VARIABLES - DO NOT EDIT BEYOND THIS POINT.
+currentPath = os.getcwd()
+csv_input_location = currentPath + csv_input_subdirectory
 csv_output_location = currentPath + csv_output_subdirectory
 
-# DATA INPUTS AND OUTPUTS
+# MODULE DATA INPUTS AND OUTPUTS
 wells_headers = []
 scalars_data = []
 tablelink_data = []
 wells_output_headers = []
 clean_wells_output_headers = []
-
-# ONLY EDIT THESE TO REFLECT THE SOURCE FILES AND HEADERS.
-csv_wells = csv_input_location + "wel.csv"
-csv_scalars = csv_input_location + "scalars.csv"
-csv_tablelink = csv_input_location + "tablelink.csv"
-scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4',
-                   'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
-tablelink_headers = ['Row', 'Col', 'Kzone']
+wells_run_subheader = []
+clean_wells_run_subheader = []
+csv_wells = csv_input_location + csv_input_file_wells
+csv_scalars = csv_input_location + csv_input_file_scalars
+csv_tablelink = csv_input_location + csv_input_file_tablelink
 
 # MODULE METHODS
-
 
 # HANDLING LISTS
 def ReadCSVasList(csv_file):
@@ -111,16 +122,16 @@ def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
 
 
 # CLEAN HEADER DATA
-def CleanWellsHeaderData(wells_output_headers):
-    for header_row in wells_output_headers:
-        clean_wells_output_row = []
+def CleanHeaderData(dirty_output_headers, clean_output_headers):
+    for header_row in dirty_output_headers:
+        clean_output_row = []
         for item in header_row:
             if (type(item) == float):
                 new_item = int(item)
-                clean_wells_output_row.append(new_item)
+                clean_output_row.append(new_item)
             else:
-                clean_wells_output_row.append(item)
-        clean_wells_output_headers.append(clean_wells_output_row)
+                clean_output_row.append(item)
+        clean_output_headers.append(clean_output_row)
 
 
 # CALCULATE SCALARS.
@@ -135,6 +146,11 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
         # iterate over wells data.
         for wells_row in wells_data:
+
+            # Handle the individual run subheaders that are inerted between runs.
+            if(wells_row == wells_run_subheader[0]):
+                new_wells_data.append(clean_wells_run_subheader[0])
+                continue
 
             # get the current cell Row/Col values.
             current_layer = int(wells_row[0])
@@ -182,44 +198,50 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
                             break
 
             # Calculate the new pumping value.
-            new_pumping = float(original_pumping) * float(new_scalar)
+            # new_pumping = float(original_pumping) * float(new_scalar)
+            new_pumping = Decimal(original_pumping) * Decimal(new_scalar)
             if (new_pumping == 0.0) or (new_pumping == -0.0):
                 new_pumping = 0
 
             # Append the new wels row data to a temp object for this
             # scalar_series.
-            new_wells_row = [current_layer,
-                             current_row, current_col, new_pumping]
+            new_wells_row = [current_layer, current_row, current_col, new_pumping]
             new_wells_data.append(new_wells_row)
 
         # Derive filename for new wells data object.
         cleaned_current_datasource = (current_datasource[:-4])
-        new_wells_file_prefix = "wels_" + cleaned_current_datasource
+        new_wells_file_prefix = "wells_" + cleaned_current_datasource
         new_wells_filename = new_wells_file_prefix + ".dat"
 
         # Write the final wells data object to the new file.
-        WriteWellsListToCSV(csv_output_location, new_wells_filename,
-                            wells_headers, new_wells_data, clean_wells_output_headers)
+        WriteWellsListToCSV(csv_output_location, new_wells_filename, wells_headers, new_wells_data, clean_wells_output_headers)
 
 
 # START MODULE.
 print "Here we go! Calculating some tasty new scalar data!"
 
+# LOAD DATA SOURCES.
+
 # WELLS
 wells_data = ReadCSVasList(csv_wells)
 
 # Trim headers from wells data
-# Push first two rows of wells data to new List for use when writing back
-# out to file.
+# Push first rows of wells data to new List for use when writing back out to file.
 wells_output_headers.append(wells_data[0])
-wells_output_headers.append(wells_data[1])
 
 # Cleanup header data for writing later.
-CleanWellsHeaderData(wells_output_headers)
+CleanHeaderData(wells_output_headers, clean_wells_output_headers)
 
-# Trim off first two rows for processing.
+# Trim off first row of headers before processing remaining run data.
 wells_data.pop(0)
-wells_data.pop(0)
+
+# Get a reference to the per run subheader values needed to filter out during run processing.
+wells_run_subheader.append(wells_data[0])
+#print wells_run_subheader
+
+# Cleanup subheader data for writing later.
+CleanHeaderData(wells_run_subheader, clean_wells_run_subheader)
+#print clean_wells_run_subheader
 
 # SCALARS
 ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
@@ -228,8 +250,7 @@ ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 
 # RUN CALCULATIONS
-CalculateScalarsPerRun(scalars_headers, scalars_data,
-                       wells_data, tablelink_headers, tablelink_data)
+CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
 
 # END MODULE.
 print "MMM, Mmm, mmm! That WAS some tasty data!"
