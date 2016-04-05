@@ -12,8 +12,8 @@ csv_output_subdirectory = "/csv_output/"
 #csv_input_file_tablelink = "tablelink.csv"
 # TEST DATA Long
 csv_input_file_wells = "wel_0.csv"
-csv_input_file_scalars = "scalars_0.csv"
 csv_input_file_tablelink = "tablelink_0.csv"
+csv_input_file_scalars = "scalars_top5.csv"
 # TEST DATA Configs
 scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 tablelink_headers = ['Row', 'Col', 'Kzone']
@@ -47,9 +47,9 @@ def ReadCSVasList(csv_file):
             datalist = list(reader)
             return datalist
     except IOError as (errno, strerror):
-        # print("I/O error({0}): {1}".format(errno, strerror))
-        # print " "
-        break
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
+        # break
     return
 
 
@@ -70,9 +70,9 @@ def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
                 for data_row in data:
                     writer.writerow(data_row)
     except IOError as (errno, strerror):
-        # print("I/O error({0}): {1}".format(errno, strerror))
-        # print " "
-        break
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
+        # break
     return
 
 
@@ -92,9 +92,9 @@ def WriteWellsListToCSV(csv_file_path, csv_filename, csv_columns, data_list, wel
             for data_row in data:
                 writer.writerow(data_row)
     except IOError as (errno, strerror):
-        # print("I/O error({0}): {1}".format(errno, strerror))
-        # print " "
-        break
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
+        # break
     return
 
 
@@ -106,9 +106,9 @@ def ReadCSVasDict(csv_file, headers, data_target):
             for row in reader:
                 data_target.append(row)
     except IOError as (errno, strerror):
-        # print("I/O error({0}): {1}".format(errno, strerror))
-        # print " "
-        break
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
+        # break
     return
 
 
@@ -123,9 +123,9 @@ def WriteDictToCSV(csv_file_path, csv_filename, csv_columns, dict_data):
             for data in dict_data:
                 writer.writerow(data)
     except IOError as (errno, strerror):
-        # print("I/O error({0}): {1}".format(errno, strerror))
-        # print " "
-        break
+        print("I/O error({0}): {1}".format(errno, strerror))
+        print " "
+        # break
     return
 
 
