@@ -13,7 +13,7 @@ csv_output_subdirectory = "/csv_output/"
 # TEST DATA Long
 csv_input_file_wells = "wel_0.csv"
 csv_input_file_tablelink = "tablelink_0.csv"
-csv_input_file_scalars = "scalars_top5.csv"
+csv_input_file_scalars = "5th_primi.csv"
 # TEST DATA Configs
 scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 tablelink_headers = ['Row', 'Col', 'Kzone']
