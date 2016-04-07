@@ -1,0 +1,148 @@
+MODFLOW REFS
+
+Explanation of Parameters in the Name File:
+
+    Ftype--is the file type, which must be one of the following character values. Ftype may be entered in uppercase or lowercase:
+        LIST for the listing file
+        BAS for the Basic Package
+        OC for the Output Control Option
+        BCF for the Block-Centered Flow Package
+        RCH for the Recharge Package
+        RIV for the River Package
+        WEL for the Well Package
+        DRN for the Drain Package
+        GHB for the General-Head Boundary Package
+        EVT for the Evapotranspiration Package
+        SIP for the Strongly Implicit Procedure Package
+        SOR for the Slice-Successive Over-Relaxation Package
+        DATA(BINARY) for binary (unformatted) files such as those used to save cell-by-cell budget data and binary (unformatted) head and drawdown data.
+        DATA for formatted (text) files such as those used to save formatted head and drawdown and for input of array data from files that are separate from the primary package input files.
+
+    Nunit--is the Fortran unit to be used when reading from or writing to the file. Any legal unit number on the computer being used can be specified except units 97-99. Unit 99 is used for the name file and for reading arrays using the OPEN/CLOSE option (see Input Instructions for Array Reading Utility Modules section). Units 97 and 98 are used for batch files as explained below. Each file must have a unique unit number.
+
+    Fname--is the name of the file, which is a character value.
+
+################################################################################################
+## RECHARGE FILE (RCH from MODFLOW-96)
+
+Recharge Package Input Instructions
+
+Input to the Recharge (RCH) Package is read from the file that has type "RCH." All non-array parameters are free format if the word FREE is specified in item 4 of the Basic Package input file; otherwise, the non-array parameters have 10-character fields.
+
+FOR EACH SIMULATION:
+    1.  NRCHOP   IRCHCB
+
+FOR EACH STRESS PERIOD:
+    2. INRECH INIRCH
+    3. RECH(NCOL,NROW) -- U2DREL If INRECH ≥ 0
+    4. IRCH(NCOL,NROW) -- U2DINT If NRCHOP=2 and if INIRCH ≥ 0
+
+EXPLANATION:
+
+NRCHOP - the recharge option code. 
+    Recharge fluxes are defined in a two-dimensional array, RECH, with one value for each vertical column. 
+    Accordingly, recharge is applied to one cell in each vertical column, and the option code determines which cell in the column is selected for recharge.
+    1 - Recharge is only to the top grid layer.
+    2 - Vertical distribution of recharge is specified in array IRCH.
+    3 - Recharge is applied to the highest active cell in each vertical column. A constant-head node intercepts recharge and prevents deeper infiltration.
+
+IRCHCB - a flag and a unit number.
+    If IRCHCB > 0, it is the unit number to which cell-by-cell flow terms will be written when "SAVE BUDGET" or a non-zero value for ICBCFL is specified in Output Control.
+    If IRCHCB ≤ 0, cell-by-cell flow terms will not be written.
+
+INRECH - the RECH read flag.
+    If INRECH ≥ 0, an array of recharge fluxes, RECH, is read.
+    If INRECH < 0, recharge rates from the preceding stress period are used.
+
+INIRCH - the IRCH read flag, which is read only if NRCHOP is two:
+    If INIRCH ≥ 0, an array of layer numbers (IRCH) is read.
+    If INIRCH < 0, the array (IRCH) used in the preceding stress period is reused.
+
+RECH - the recharge flux (LT-1). Read only if INRECH is greater than or equal to zero.
+
+IRCH - the layer number array that defines the layer in each vertical column where recharge is applied. Read only if NRCHOP is two and if INIRCH is greater than or equal to zero.
+
+----
+Examples.
+----
+(Top 4 lines)
+----
+
+         1        50         0
+         1         0
+        18         1(20G14.0)                   -1  Recharge
+  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00
+
+----
+(prettified)
+----
+
+1           50          0
+1           0
+18          1(20G14.0)  -1      Recharge
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00  
+0.000000E+00
+
+################################################################################################
+## RECHARGE FILE (GWDSS OUTPUT):
+## SAMPLE ONLY.
+
+HYDRO_ID
+Jan-99  Feb-99  Mar-99  Apr-99  May-99  Jun-99  Jul-99  Aug-99  Sep-99  Oct-99  Nov-99  Dec-99
+Jan-00  Feb-00  Mar-00  Apr-00  May-00  Jun-00  Jul-00  Aug-00  Sep-00  Oct-00  Nov-00  Dec-00  
+Jan-01  Feb-01  Mar-01  Apr-01  May-01  Jun-01  Jul-01  Aug-01  Sep-01  Oct-01  Nov-01  Dec-01  
+Jan-02  Feb-02  Mar-02  Apr-02  May-02  Jun-02  Jul-02  Aug-02  Sep-02  Oct-02  Nov-02  Dec-02  
+Jan-03  Feb-03  Mar-03  Apr-03  May-03  Jun-03  Jul-03  Aug-03  Sep-03  Oct-03  Nov-03  Dec-03  
+Jan-04  Feb-04  Mar-04  Apr-04  May-04  Jun-04  Jul-04  Aug-04  Sep-04  Oct-04  Nov-04  Dec-04  
+Jan-05  Feb-05  Mar-05  Apr-05  May-05  Jun-05  Jul-05  Aug-05  Sep-05  Oct-05  Nov-05  Dec-05  
+Jan-06  Feb-06  Mar-06  Apr-06  May-06  Jun-06  Jul-06  Aug-06  Sep-06  Oct-06  Nov-06  Dec-06  
+Jan-07  Feb-07  Mar-07  Apr-07  May-07  Jun-07  Jul-07  Aug-07  Sep-07  Oct-07  Nov-07  Dec-07  
+Jan-08  Feb-08  Mar-08  Apr-08  May-08  Jun-08  Jul-08  Aug-08  Sep-08  Oct-08  Nov-08  Dec-08  
+Jan-09  Feb-09  Mar-09  Apr-09  May-09  Jun-09  Jul-09  Aug-09  Sep-09  Oct-09  Nov-09  Dec-09
+
+308848  
+"9,184.51"  "7,790.61"  "8,164.65"  "7,419.49"  "6,878.88"  "6,002.22"  "5,958.39"  "4,926.85"  "3,661.53"  "3,012.80"  "2,688.43"  "2,627.07"  
+"2,618.30"  "2,279.32"  "2,440.05"  "2,232.57"  "2,308.55"  "4,348.25"  "3,386.84"  "2,369.91"  "1,840.99"  "2,586.16"  "6,569.13"  "7,746.78"  
+"8,480.25"  "8,141.28"  "9,178.66"  "9,012.09"  "9,301.39"  "8,369.21"  "7,945.49"  "6,855.50"  "6,732.77"  "6,110.34"  "7,124.35"  "9,599.46"  
+"10,128.38" "8,830.92"  "9,222.49"  "8,570.84"  "8,176.34"  "6,963.63"  "8,842.61"  "9,090.99"  "8,033.15"  "7,799.38"  "8,632.21"  "9,672.51"  
+"9,859.54"  "9,342.30"  "10,426.44" "9,374.45"  "9,058.85"  "8,386.74"  "8,065.30"  "7,390.27"  "6,136.64"  "5,099.26"  "3,746.27"  "3,611.85"  
+"3,664.45"  "3,576.78"  "4,187.53"  "4,967.76"  "5,698.31"  "6,583.74"  "8,746.17"  "7,691.26"  "6,259.37"  "5,943.77"  "7,258.77"  "9,260.48"  
+"8,810.46"  "8,015.62"  "10,405.99" "9,634.53"  "9,012.09"  "8,001.01"  "7,439.95"  "6,761.99"  "5,651.55"  "4,470.98"  "3,755.04"  "3,763.81"  
+"3,018.64"  "2,492.64"  "2,855.00"  "2,711.81"  "3,129.69"  "2,527.71"  "2,375.76"  "1,963.72"  "1,823.46"  "2,127.37"  "2,101.07"  "2,618.30"  
+"5,061.27"  "5,324.27"  "7,410.72"  "8,404.28"  "8,977.03"  "9,196.19"  "9,853.69"  "9,570.24"  "8,611.75"  "8,214.33"  "7,594.82"  "7,404.88"  
+"6,437.63"  "5,020.36"  "4,821.65"  "4,283.96"  "4,076.48"  "2,656.29"  "2,250.10"  "2,264.71"  "2,121.52"  "1,925.74"  "1,724.10"  "1,782.55"  
+"1,712.41"  "1,522.47"  "1,905.28"  "1,703.65"  "1,680.27"  "1,548.77"  "1,446.49"  "1,350.06"  "2,627.07"  "4,228.44"  "4,885.93"  "6,493.15"
+
+308849  
+"9,184.51"  "7,790.61"  "8,164.65"  "7,419.49"  "6,878.88"  "6,002.22"  "5,958.39"  "4,926.85"  "3,661.53"  "3,012.80"  "2,688.43"  "2,627.07"  
+"2,618.30"  "2,279.32"  "2,440.05"  "2,232.57"  "2,308.55"  "4,348.25"  "3,386.84"  "2,369.91"  "1,840.99"  "2,586.16"  "6,569.13"  "7,746.78"  
+"8,480.25"  "8,141.28"  "9,178.66"  "9,012.09"  "9,301.39"  "8,369.21"  "7,945.49"  "6,855.50"  "6,732.77"  "6,110.34"  "7,124.35"  "9,599.46"  
+"10,128.38" "8,830.92"  "9,222.49"  "8,570.84"  "8,176.34"  "6,963.63"  "8,842.61"  "9,090.99"  "8,033.15"  "7,799.38"  "8,632.21"  "9,672.51"  
+"9,859.54"  "9,342.30"  "10,426.44" "9,374.45"  "9,058.85"  "8,386.74"  "8,065.30"  "7,390.27"  "6,136.64"  "5,099.26"  "3,746.27"  "3,611.85"  
+"3,664.45"  "3,576.78"  "4,187.53"  "4,967.76"  "5,698.31"  "6,583.74"  "8,746.17"  "7,691.26"  "6,259.37"  "5,943.77"  "7,258.77"  "9,260.48"  
+"8,810.46"  "8,015.62"  "10,405.99" "9,634.53"  "9,012.09"  "8,001.01"  "7,439.95"  "6,761.99"  "5,651.55"  "4,470.98"  "3,755.04"  "3,763.81"  
+"3,018.64"  "2,492.64"  "2,855.00"  "2,711.81"  "3,129.69"  "2,527.71"  "2,375.76"  "1,963.72"  "1,823.46"  "2,127.37"  "2,101.07"  "2,618.30"  
+"5,061.27"  "5,324.27"  "7,410.72"  "8,404.28"  "8,977.03"  "9,196.19"  "9,853.69"  "9,570.24"  "8,611.75"  "8,214.33"  "7,594.82"  "7,404.88"  
+"6,437.63"  "5,020.36"  "4,821.65"  "4,283.96"  "4,076.48"  "2,656.29"  "2,250.10"  "2,264.71"  "2,121.52"  "1,925.74"  "1,724.10"  "1,782.55"  
+"1,712.41"  "1,522.47"  "1,905.28"  "1,703.65"  "1,680.27"  "1,548.77"  "1,446.49"  "1,350.06"  "2,627.07"  "4,228.44"  "4,885.93"  "6,493.15"
+
+(repeats using HYDRO_ID 308848 : 321272,  TOTAL HYDRO_IDs == 12,424)
+
