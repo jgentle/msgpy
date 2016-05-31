@@ -207,7 +207,7 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
             # Calculate the new pumping value.
             # new_pumping = float(original_pumping) * float(new_scalar)
-            new_pumping = Decimal(original_pumping) * Decimal(new_scalar)
+            new_pumping = Decimal(str(original_pumping)) * Decimal(str(new_scalar))
             if (new_pumping == 0.0) or (new_pumping == -0.0):
                 new_pumping = 0
 

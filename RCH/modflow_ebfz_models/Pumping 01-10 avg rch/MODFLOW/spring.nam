@@ -1,0 +1,13 @@
+LIST    6 output.dat
+BAS     1 bas.dat
+BCF   11 bcf.dat
+OC    22 oc.dat
+WEL   12 wel.dat
+DRN   13 drn.dat
+RCH   18 rch.dat
+HFB   26 hfb1.dat
+SIP   19 sip.dat
+DATA(BINARY)  50 budget.dat
+DATA(BINARY)  51 heads.dat
+DATA(BINARY)  52 ddown.dat
+DATA(BINARY)  32 mt3d.flo
