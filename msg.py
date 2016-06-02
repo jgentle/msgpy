@@ -6,19 +6,24 @@ from decimal import *
 # INPUT VARS - EDIT THESE
 csv_input_subdirectory = "/csv_input/"
 csv_output_subdirectory = "/csv_output/"
-# TEST DATA Short
-#csv_input_file_wells = "wel.csv"
-#csv_input_file_scalars = "scalars.csv"
-#csv_input_file_tablelink = "tablelink.csv"
-# TEST DATA Long
+
+# TEST DATA
+# csv_input_file_wells = "wel.csv"
+# csv_input_file_scalars = "scalars.csv"
+# csv_input_file_tablelink = "tablelink.csv"
+
+# REAL DATA
 csv_input_file_wells = "wel_0.csv"
 csv_input_file_tablelink = "tablelink_0.csv"
-csv_input_file_scalars = "5th_primi.csv"
+csv_input_file_scalars = "scalars_0.csv"
+
 # TEST DATA Configs
 scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 tablelink_headers = ['Row', 'Col', 'Kzone']
 
-# MODULE VARIABLES - DO NOT EDIT BEYOND THIS POINT.
+# DO NOT EDIT BEYOND THIS POINT!!!
+
+# MODULE VARIABLES
 currentPath = os.getcwd()
 csv_input_location = currentPath + csv_input_subdirectory
 csv_output_location = currentPath + csv_output_subdirectory
@@ -35,8 +40,8 @@ csv_wells = csv_input_location + csv_input_file_wells
 csv_scalars = csv_input_location + csv_input_file_scalars
 csv_tablelink = csv_input_location + csv_input_file_tablelink
 
-# MODULE METHODS
 
+# MODULE METHODS
 # HANDLING LISTS
 def ReadCSVasList(csv_file):
     try:
@@ -55,7 +60,7 @@ def ReadCSVasList(csv_file):
 
 # Generic Method for Reference - Unused by Module.
 def WriteListToCSV(csv_file_path, csv_filename, csv_columns, data_list):
-    #print csv_file_path, csv_filename, csv_columns, data_list
+    # print csv_file_path, csv_filename, csv_columns, data_list
     csv_file = csv_file_path + csv_filename
     columns = csv_columns
     data = data_list
@@ -226,7 +231,7 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
 
 # START MODULE.
-#print "Here we go! Calculating some tasty new scalar data!"
+# print "Here we go! Calculating some tasty new scalar data!"
 
 # LOAD DATA SOURCES.
 
@@ -245,11 +250,11 @@ wells_data.pop(0)
 
 # Get a reference to the per run subheader values needed to filter out during run processing.
 wells_run_subheader.append(wells_data[0])
-#print wells_run_subheader
+# print wells_run_subheader
 
 # Cleanup subheader data for writing later.
 CleanHeaderData(wells_run_subheader, clean_wells_run_subheader)
-#print clean_wells_run_subheader
+# print clean_wells_run_subheader
 
 # SCALARS
 ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
