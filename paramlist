@@ -1,0 +1,10 @@
+myprogram -i data1 -o output1 >& run1.out
+myprogram -i data2 -o output2 >& run2.out
+myprogram -i data3 -o output3 >& run3.out
+myprogram -i data4 -o output4 >& run4.out
+myprogram -i data5 -o output5 >& run5.out
+myprogram -i data6 -o output6 >& run6.out
+
+myprogram -i dataXYZ -o outputXYZ >& runXYZ.out
+myprogram -i dataXYZ -o outputXYZ >& runXYZ.out
+myprogram -i dataXYZ -o outputXYZ >& runXYZ.out
