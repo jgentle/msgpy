@@ -13,8 +13,8 @@
 #
 #------------------Scheduler Options--------------------
 #SBATCH -J Parametric               # Job name
-#SBATCH -N 1                        # Total number of nodes (16 cores/node)
-#SBATCH -n 24                       # Total number of tasks
+#SBATCH -N 1                        # Total number of nodes (24 cores/node)
+#SBATCH -n 24                       # Total number of tasks (Is this cores?)
 #SBATCH -p normal                   # Queue name
 #SBATCH -o Parametric.o%j           # Name of stdout output file (%j expands to jobid)
 #SBATCH -t 00:05:00                 # Run time (hh:mm:ss)
