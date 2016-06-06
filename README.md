@@ -1,7 +1,7 @@
-# msgpy
+# What is msg.py?
 Modflow Scalar Generation for Python
 
-# usage
+## Target use case
 For use in generating new wel.dat input files based on predetermined scalar values.
 
 # Parametric Launcher Usage
