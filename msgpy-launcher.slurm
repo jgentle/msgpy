@@ -21,7 +21,7 @@
 #
 # <------------ Account String ------------>
 # <--- (Use this ONLY if you have MULTIPLE accounts) --->
-#   #SBATCH -A A-ccsc
+#SBATCH -A Groundwater-Decision
 #   
 #------------------------------------------------------
 #
