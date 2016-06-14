@@ -1,7 +1,7 @@
 # MSG.PY 
 ### Modflow Scalar Generation for Python
 
-Version: **v.0.3.0** | 
+Version: **v.0.1.4** | 
 Last Updated: **2016.06.14**
 
 ### What is msg.py?
