@@ -3,6 +3,18 @@ Any notable changes to the msg.py script will be documented here.
 Changes are added in descending order from most recent to oldest.
 
 ---
+### v.0.1.5
+
+##### Added
+- Script now has default argument values and can accept optional arguments to override default values.
+
+##### Changed
+- Nothing.
+
+##### Removed
+- All hardcoded inputs.
+
+---
 ### v.0.1.4
 
 ##### Added
