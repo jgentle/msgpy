@@ -1,12 +1,12 @@
 # MSG.PY 
 ### Modflow Scalar Generation for Python
-> Version: v.1.1.0
+> _Version_: v.1.1.0
 
-> Updated 2016.06.14
+> _Updated_: 2016.06.14
 
-> Author: John Gentle 
+> _Author_: John Gentle 
 
-> Contact: jgentle@tacc.utexas.edu
+> _Contact_: jgentle@tacc.utexas.edu
 
 ### What is msg.py?
 Python script to combine input files for MODFLOW 96 and regenerate the selected iputs.
@@ -57,13 +57,13 @@ The msg.py script is configurable and expects arguments (in this specific order)
     - wells
     - tablelinks
     - scalars
-    
+
 ### Script Execution
 To run the msg.py script you can execute either of the following commands:
 
     $ python msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
 
-    OR
+    OR (after running _$ chmod +x msg.py_)
 
     $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
 
