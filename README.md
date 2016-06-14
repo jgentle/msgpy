@@ -17,7 +17,7 @@ For use in generating new wel.dat input files based on predetermined scalar valu
 ### Directory Structure
 The msg.py script expects the following directory structure to exist:
 
-    | msg.py_root/
+    |-- msgpy/
         |-- csv_input/
             |-- wells and tablelink file(s)
         |-- csv_data/
