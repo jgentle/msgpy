@@ -24,66 +24,48 @@ Load as a Parameter Object instead of parsing args.
 """
 ############################################################
 
-# ARGUMENTS
-sys.argv
-total = len(sys.argv)
-cmdargs = str(sys.argv)
-
-# Assigning input arg to processing chunk.
-csv_input_file_wells_arg = str(sys.argv[1])
-csv_input_file_tablelinks_arg = str(sys.argv[2])
-csv_input_file_scalars_arg = str(sys.argv[3])
-
-# ARGPARSE CONFIG
+# ARGUMENTS CONFIG
 __author__ = 'jgentle'
 parser = argparse.ArgumentParser(description='This is the msg.py MODFLOW 96 scalar generation script.')
-parser.add_argument('-id','--inputdir', help='Input directory path for wells and tablelinks data.',required=True)
-parser.add_argument('-dd','--datadir', help='Input directory path for scalars data.',required=True)
-parser.add_argument('-od','--outputdir',help='Output directory path.', required=True)
-parser.add_argument('-w','--wells', help='Input file for wells data.',required=True)
-parser.add_argument('-t','--tablelinks', help='Input file for tablelinks data.',required=True)
-parser.add_argument('-s','--scalars', help='Input file for scalars data.',required=True)
-# parser.add_argument('-wh','--wellsheaders', help='Headers for wells input data.',required=True)
-parser.add_argument('-th','--tablelinksheaders', help='Headers for tablelinks input data.',required=True)
-parser.add_argument('-sh','--scalarsheaders', help='Headers for scalars input data.',required=True)
+
+# note: set required to false in order to use set_defaults on an option.
+parser.add_argument('-id','--inputdir', help='Input directory path for wells and tablelinks data. Defaults to /csv_input/ if no argument is provided.',required=False)
+parser.add_argument('-dd','--datadir', help='Input directory path for scalars data. Defaults to /csv_data/ if no argument is provided.',required=False)
+parser.add_argument('-od','--outputdir',help='Output directory path. Defaults to /csv_output/ if no argument is provided.', required=False)
+parser.add_argument('-w','--wells', help='Input file for wells data. Defaults to wells.csv if no argument is provided.',required=False)
+parser.add_argument('-t','--tablelinks', help='Input file for tablelinks data. Defaults to tablelinks.csv if no argument is provided.',required=False)
+parser.add_argument('-s','--scalars', help='Input file for scalars data. Defaults to scalars.csv if no argument is provided.',required=False)
+# parser.add_argument('-wh','--wellsheaders', help='Headers for wells input data. Defaults to [\'A\', \'B\', \'C\', \'D\'] if no argument is provided.',required=False)
+parser.add_argument('-th','--tablelinksheaders', help='Headers for tablelinks input data. Defaults to [\'Row\', \'Col\', \'Kzone\'] if no argument is provided.',required=False)
+parser.add_argument('-sh','--scalarsheaders', help='Headers for scalars input data. Defaults to [\'sourceFile\', \'CZ1\', \'CZ2\', \'CZ3\', \'CZ4\', \'CZ5\', \'CZ6\', \'CZ7\', \'CZ8\', \'CZ9\', \'CZ10\', \'CZ11\'] if no argument is provided.',required=False)
+
+# Set some defaults for simplicity.
+parser.set_defaults(inputdir="/csv_input/")
+parser.set_defaults(datadir="/csv_data/")
+parser.set_defaults(outputdir="/csv_output/")
+parser.set_defaults(wells="wells.csv")
+parser.set_defaults(tablelinks="tablelinks.csv")
+parser.set_defaults(scalars="scalars.csv")
+# parser.set_defaults(wellsheaders="['A', 'B', 'C', 'D']")
+parser.set_defaults(tablelinksheaders="['Row', 'Col', 'Kzone']")
+parser.set_defaults(scalarsheaders="['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']")
+
+# Parse the cli args (which will supercede the defaults).
 args = parser.parse_args()
 
-# LOG ARGS PARSER
-# print ("Input directory: %s" % args.inputdir )
-# print ("Data directory: %s" % args.datadir )
-# print ("Output directory: %s" % args.outputdir )
-# print ("Input wells file: %s" % args.wells )
-# print ("Input tablelinks file: %s" % args.tablelinks )
-# print ("Input scalars file: %s" % args.scalars )
-
 # SCRIPT PATHS
-# csv_input_subdirectory = "/csv_input/"
-# csv_data_subdirectory = "/csv_data/"
-# csv_output_subdirectory = "/csv_output/"
 csv_input_subdirectory = args.inputdir
 csv_data_subdirectory = args.datadir
 csv_output_subdirectory = args.outputdir
 
 # SOURCE DATA INPUTS
-
-# Hardcoded.
-# csv_input_file_wells = "wel_0.csv"
-# csv_input_file_tablelinks = "tablelink_0.csv"
-# csv_input_file_scalars = "scalars_0.csv"
-
-# Configured.
-# csv_input_file_wells = csv_input_file_wells_arg
-# csv_input_file_tablelinks = csv_input_file_tablelinks_arg
-# csv_input_file_scalars = csv_input_file_scalars_arg
 csv_input_file_wells = args.wells
 csv_input_file_tablelinks = args.tablelinks
 csv_input_file_scalars = args.scalars
-
-# Dynamic Configs.
-# scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
-# tablelink_headers = ['Row', 'Col', 'Kzone']
-scalars_headers = args.scalarsheaders
+# wells_headers = args.wellsheaders
 tablelink_headers = args.tablelinksheaders
+scalars_headers = args.scalarsheaders
+
 
 ############################################################
 # DO NOT EDIT BEYOND THIS POINT!!!
@@ -292,6 +274,7 @@ def CleanHeaderData(dirty_output_headers, clean_output_headers):
 TODO: CALCULATE SCALARS
     Decouple the hardcoded header values from within the module.
     Should reference the header values defined in the variables section.
+    Need to determine the impact of this change before implementing it.
 """
 ############################################################
 
