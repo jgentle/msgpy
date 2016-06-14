@@ -10,8 +10,12 @@ Note that changes are added in descending order from most recent to oldest.
 - Thing F 
 
 #### Changed
+- Thing E
+- Thing F 
 
 #### Removed
+- Thing E
+- Thing F 
 
 ## v.0.2.0
 
@@ -20,8 +24,12 @@ Note that changes are added in descending order from most recent to oldest.
 - Thing D
 
 #### Changed
+- Thing C
+- Thing D
 
 #### Removed
+- Thing C
+- Thing D
 
 ## v.0.1.0
 
@@ -30,6 +38,10 @@ Note that changes are added in descending order from most recent to oldest.
 - Thing B
 
 #### Changed
+- Thing A
+- Thing B
 
 #### Removed
+- Thing A
+- Thing B
 
