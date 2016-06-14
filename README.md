@@ -52,17 +52,14 @@ The msg.py script is configurable and expects arguments for the following option
     - -sh (scalars headers)
 
 **All directory paths MUST include the trailing slash.**
+
 **The header arrays MUST be passed in as a string (surrounded by quotes).**
 
-Arguments should be passed in using the following syntax:
+It is recommended that all arguments be passed in as strings using the following syntax:
 
     ./msg.py -id "/my/inputs/" -dd "/my/data/" -od "/my/outputs/" -w "wellsFile.csv" -t "tablelinksFile.csv" -s "scalarsFile.csv" -th "['Header1', 'Header2', 'Header3']" -sh "['Header1', 'Header2', 'Header3', 'Header4']"
 
-Warning: While it is okay to use the following:
-
-    ./msg.py -id /my/inputs/ -dd /my/data/ -od /my/outputs/ -w wellsFile.csv -t tablelinksFile.csv -s scalarsFile.csv -th "['Row', 'Col', 'Kzone']" -sh "['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']"
-
-It is recommended you pass in all arguments as strings.
+__Warning: While it is possible to pass in paths directly, it is not recommended.__
 
 ### Script Execution
 To run the msg.py script you can execute either of the following commands:
