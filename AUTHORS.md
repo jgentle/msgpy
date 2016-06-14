@@ -1,11 +1,11 @@
 # Authors
 
-** Primary Author **
+## Primary Author
 Author: **John Gentle** | 
 Contact: **jgentle@tacc.utexas.edu** | 
 Github: https://github.com/jgentle
 
-** Additional Contributors **
+## Additional Contributors
 Author: **Nalbeat "Sonny" Kwon** | 
 Contact: **nalbeatkwon@utexas.edu**
 

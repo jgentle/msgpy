@@ -1,8 +1,8 @@
 # MSG.PY 
 ### Modflow Scalar Generation for Python
 
-Version: **v.1.1.0** | 
-Updated: **2016.06.14** | 
+Version: **v.0.3.0** | 
+Last Updated: **2016.06.14**
 
 ### What is msg.py?
 Msg.py is a python script to regenerate specific selected scalar inputs for MODFLOW 96 scenarios.
