@@ -57,7 +57,7 @@ The msg.py script is configurable and expects arguments for the following option
 
 It is recommended that all arguments be passed in as strings using the following syntax:
 
-    ./msg.py -id "/my/inputs/" -dd "/my/data/" -od "/my/outputs/" \
+    ./msg.py -id "/my/inputs/" -dd "/my/data/" -od "/my/outputs/" :leftwards_arrow_with_hook: 
         -w "wellsFile.csv" -t "tablelinksFile.csv" -s "scalarsFile.csv" \
         -th "['Header1', 'Header2', 'Header3']" \
         -sh "['Header1', 'Header2', 'Header3', 'Header4']"
