@@ -17,7 +17,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Hardcoded references to inputs and outputs. 
 
----
+___
 ### v.0.1.3
 
 ##### Added
@@ -29,7 +29,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Nothing.
 
----
+*** 
 ### v.0.1.2
 
 ##### Added
