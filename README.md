@@ -14,15 +14,15 @@ The msg.py script expects the following directory structure to exist:
 
     |-- msgpy/
         |-- csv_input/
-            |-- wells and tablelink file(s)
+            |-- wells and tablelinks files
         |-- csv_data/
-            |-- scalar file(s)
+            |-- scalars file(s)
         |-- csv_output/
             |-- new files created here
         |-- csv_utils/
             |-- several script utilities to help prepare data for use.
         |-- refs/
-            |-- several docs to look to for troubleshooting and usage patterns.
+            |-- several docs to look to for troubleshooting and post processing.
         |-- msg.py  
         |-- msgpy-slurm-sbatch.sh
         |-- msgpy-parametric-launcher.slurm
@@ -40,7 +40,7 @@ The input files required are as follows:
     - scalars       (the input values for multiplying well values in corresponding cells)
 
 ### Script Arguments
-The msg.py script is configurable and expects arguments for the following options:
+The msg.py script is configurable and accepts arguments for the following options:
 
     - -id (input directory)
     - -dd (data directory)
@@ -52,7 +52,6 @@ The msg.py script is configurable and expects arguments for the following option
     - -sh (scalars headers)
 
 **All directory paths MUST include the trailing slash.**
-
 **The header arrays MUST be passed in as a string (surrounded by quotes).**
 
 It is recommended that all arguments be passed in as strings using the following syntax:
@@ -64,14 +63,36 @@ It is recommended that all arguments be passed in as strings using the following
 
 __Warning: While it is possible to pass in paths directly, it is not recommended.__
 
-### Script Execution
-To run the msg.py script you can execute either of the following commands:
+#### Default Argument Values
+Default values are provided for simplicity of use.
+They are as follows:
 
-    $ python msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
+    - input directory = "/csv_input/"
+    - data directory = "/csv_data/
+    - output directory = "/csv_output/"
+    - wells file = "wells.csv"
+    - tablelinks file = "tablelinks.csv"
+    - scalars file = "scalars.csv"
+    - tablelinks headers = "['Row', 'Col', 'Kzone']"
+    - scalars headers = "['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']"
+
+### Script Execution
+Assuming you are using the default values specified, you can run msg.py by executing the following commands:
+
+    $ python msg.py
 
 Alternatively (after running _$ chmod +x msg.py_):
 
-    $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
+    $ ./msg.py
+
+If you have custom arguments to pass in, the complete syntax is as follows:
+
+    $ ./msg.py -id "/my/inputs/" -dd "/my/data/" -od "/my/outputs/" \
+        -w "wellsFile.csv" -t "tablelinksFile.csv" -s "scalarsFile.csv" \
+        -th "['Header1', 'Header2', 'Header3']" \
+        -sh "['Header1', 'Header2', 'Header3', 'Header4']"
+
+You can omit any arguments for which you are using the default values.
 
 #### **_Enjoy your tasty data!_**
 :stew: :yum: :purple_heart:
