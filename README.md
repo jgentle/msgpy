@@ -63,7 +63,7 @@ To run the msg.py script you can execute either of the following commands:
 
     $ python msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
 
-    OR (after running _$ chmod +x msg.py_)
+Alternatively (after running _$ chmod +x msg.py_):
 
     $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
 
