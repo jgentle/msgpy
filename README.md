@@ -8,15 +8,15 @@
 
 > Contact: jgentle@tacc.utexas.edu
 
-# What is msg.py?
+## What is msg.py?
 Python script to combine input files for MODFLOW 96 and regenerate the selected iputs.
 
 ## Target use case
 For use in generating new wel.dat input files based on predetermined scalar values.
 
-# General Usage
+## General Usage
 
-## Organization
+### Organization
 The msg.py script expects the following directory structure to exist:
 
     | msg.py_root/
@@ -37,7 +37,7 @@ The msg.py script expects the following directory structure to exist:
         |-- README.md
         |-- .gitignore
 
-# Script Inputs
+### Script Inputs
 The msg.py script expects to find specific files in these locations.
 The input files required are as follows:
 
@@ -45,20 +45,20 @@ The input files required are as follows:
     - tablelinks    (the linkage table data extracted from GAM shape file to connect wells with cells by zone)
     - scalars       (the input values for multiplying well values in corresponding cells)
 
-# Script Arguments
+### Script Arguments
 The msg.py script is configurable and expects arguments (in this specific order) for:
     - wells
     - tablelinks
     - scalars
 
-# Script Configs
+### Script Configs
 You must edit the headers for the SCALAR and TABLELINK files to match your input data structure.
 By default, they are defined as follows:
 
     scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
     tablelink_headers = ['Row', 'Col', 'Kzone']
 
-# Script Execution
+### Script Execution
 To run the msg.py script you can execute either of the following commands:
 
     $ python msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
@@ -66,6 +66,8 @@ To run the msg.py script you can execute either of the following commands:
     OR
 
     $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
+
+#### Enjoy your tasty data!
 
 
 
