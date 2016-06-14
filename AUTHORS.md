@@ -9,3 +9,6 @@ Github: https://github.com/jgentle
 Author: **Nalbeat "Sonny" Kwon** | 
 Contact: **nalbeatkwon@utexas.edu**
 
+Author: **Dr. Suzanne Pierce** | 
+Contact: **spierce@tacc.utexas.edu**
+
