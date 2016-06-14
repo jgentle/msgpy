@@ -1,31 +1,139 @@
+#!/usr/bin/env python
+"""
+MSG.PY 
+v.1.1.0
+By John Gentle
+Updated 2016.06.14
+
+Python script to combine input files for MODFLOW 96 and regenerate the selected iputs.
+
+The msg.py script expects the following directory structure to exist:
+
+    | msg.py_root/
+        |-- csv_input/
+            |-- wells and tablelink file(s)
+        |-- csv_data/
+            |-- scalar file(s)
+        |-- csv_output/
+            |-- new files created here
+        |-- csv_utils/
+            |-- several script utilities to help prepare data for use.
+        |-- refs/
+            |-- several docs to look to for troubleshooting and usage patterns.
+        |-- msg.py  
+        |-- msgpy-slurm-sbatch.sh
+        |-- msgpy-parametric-launcher.slurm
+        |-- paramslist
+        |-- README.md
+        |-- .gitignore
+
+The msg.py script expects to find specific files in these locations.
+The input files required are as follows:
+
+    - wells         (the base wells.dat file used by MODFLOW 96 for scenario)
+    - tablelinks    (the linkage table data extracted from GAM shape file to connect wells with cells by zone)
+    - scalars       (the input values for multiplying well values in corresponding cells)
+
+The msg.py script is configurable and expects arguments (in this specific order) for:
+    - wells
+    - tablelinks
+    - scalars
+
+You must edit the headers for the SCALAR and TABLELINK files to match your input data structure.
+By default, they are defined as follows:
+
+    scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
+    tablelink_headers = ['Row', 'Col', 'Kzone']
+
+To run the msg.py script you can execute either of the following commands:
+
+    $ python msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
+
+    OR
+
+    $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
+
+"""
+
+print (" ")
+print ("Starting msg.py...")
+print("Gathering ingredients... ")
+print (" ")
+
+import sys
+import getopt
 import os
 import csv
 from decimal import *
 
+# ARGUMENTS
+sys.argv
+total = len(sys.argv)
+cmdargs = str(sys.argv)
+# print ("First argument: %s" % str(sys.argv[1]))
+# print ("Second argument: %s" % str(sys.argv[2]))
+# print ("Third argument: %s" % str(sys.argv[3]))
+# for i in xrange(total):
+#     print ("Argument # %d : %s" % (i, str(sys.argv[i])))
 
-# INPUT VARS - EDIT THESE
+# LOG ARGUMENTS
+print ("msg.py script arguments:")
+print ("-------------------------------")
+print ("The total numbers of args passed to the script: %d" % total)
+print ("Args list: %s" % cmdargs)
+print ("Script name: %s" % str(sys.argv[0]))
+print ("Wells file: %s" % str(sys.argv[1]))
+print ("Tablelinks file: %s" % str(sys.argv[2]))
+print ("Scalars filee: %s" % str(sys.argv[3]))
+print (" ")
+
+# Assigning input arg to processing chunk.
+csv_input_file_wells_arg = str(sys.argv[1])
+csv_input_file_tablelinks_arg = str(sys.argv[2])
+csv_input_file_scalars_arg = str(sys.argv[3])
+
+# SCRIPT PATHS
 csv_input_subdirectory = "/csv_input/"
+csv_data_subdirectory = "/csv_data/"
 csv_output_subdirectory = "/csv_output/"
 
-# TEST DATA
-# csv_input_file_wells = "wel.csv"
-# csv_input_file_scalars = "scalars.csv"
-# csv_input_file_tablelink = "tablelink.csv"
+# SOURCE DATA INPUTS
 
-# REAL DATA
-csv_input_file_wells = "wel_0.csv"
-csv_input_file_tablelink = "tablelink_0.csv"
-csv_input_file_scalars = "scalars_0.csv"
+# Hardcoded.
+# csv_input_file_wells = "wel_0.csv"
+# csv_input_file_tablelinks = "tablelink_0.csv"
+# csv_input_file_scalars = "scalars_0.csv"
 
-# TEST DATA Configs
+# Configured.
+csv_input_file_wells = csv_input_file_wells_arg
+csv_input_file_tablelinks = csv_input_file_tablelinks_arg
+csv_input_file_scalars = csv_input_file_scalars_arg
+
+# DATA Configs
 scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
 tablelink_headers = ['Row', 'Col', 'Kzone']
+
+# LOG VARS
+print ("msg.py script variables:")
+print ("-------------------------------")
+# print ("Input chunk file: %s" % csv_input_file_scalars_arg)
+print ("csv_input_subdirectory: %s" % csv_input_subdirectory)
+print ("csv_data_subdirectory: %s" % csv_data_subdirectory)
+print ("csv_output_subdirectory: %s" % csv_output_subdirectory)
+
+print ("csv_input_file_wells: %s" % csv_input_file_wells)
+print ("csv_input_file_tablelinks: %s" % csv_input_file_tablelinks)
+print ("csv_input_file_scalars: %s" % csv_input_file_scalars)
+print ("scalar_headers: %s" % scalars_headers)
+print ("tablelink_headers: %s" % tablelink_headers)
+print (" ")
 
 # DO NOT EDIT BEYOND THIS POINT!!!
 
 # MODULE VARIABLES
 currentPath = os.getcwd()
 csv_input_location = currentPath + csv_input_subdirectory
+csv_data_location = currentPath + csv_data_subdirectory
 csv_output_location = currentPath + csv_output_subdirectory
 
 # MODULE DATA INPUTS AND OUTPUTS
@@ -37,9 +145,30 @@ clean_wells_output_headers = []
 wells_run_subheader = []
 clean_wells_run_subheader = []
 csv_wells = csv_input_location + csv_input_file_wells
-csv_scalars = csv_input_location + csv_input_file_scalars
-csv_tablelink = csv_input_location + csv_input_file_tablelink
+csv_scalars = csv_data_location + csv_input_file_scalars
+csv_tablelink = csv_input_location + csv_input_file_tablelinks
 
+# LOG CONFIG
+print ("msg.py script configuration:")
+print ("-------------------------------")
+print ("currentPath: %s" % currentPath)
+print ("csv_input_location: %s" % csv_input_location)
+print ("csv_data_location: %s" % csv_data_location)
+print ("csv_output_location: %s" % csv_output_location)
+print ("wells_headers: %s" % wells_headers)
+print ("scalars_data: %s" % scalars_data)
+print ("tablelink_data: %s" % tablelink_data)
+print ("wells_output_headers: %s" % wells_output_headers)
+print ("clean_wells_output_headers: %s" % clean_wells_output_headers)
+print ("wells_run_subheader: %s" % wells_run_subheader)
+print ("clean_wells_run_subheader: %s" % clean_wells_run_subheader)
+print ("csv_wells: %s" % csv_wells)
+print ("csv_scalars: %s" % csv_scalars)
+print ("csv_tablelink: %s" % csv_tablelink)
+print (" ")
+
+# STOP SCRIPT BEFORE EXECUTION
+sys.exit()
 
 # MODULE METHODS
 # HANDLING LISTS
@@ -146,6 +275,11 @@ def CleanHeaderData(dirty_output_headers, clean_output_headers):
                 clean_output_row.append(item)
         clean_output_headers.append(clean_output_row)
 
+"""
+TODO:
+    Decouple the hardcoded header values from within the module.
+    Should reference the header values defined in the variables section.
+"""
 
 # CALCULATE SCALARS.
 def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data):
@@ -231,7 +365,9 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
 
 # START MODULE.
-# print "Here we go! Calculating some tasty new scalar data!"
+print "Here we go! Calculating some tasty new scalar data!"
+print ("Cooking the data... ")
+print (" ")
 
 # LOAD DATA SOURCES.
 
@@ -262,8 +398,14 @@ ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 # TABLELINK
 ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 
+print ("Seasoning the data... ")
+print (" ")
+
 # RUN CALCULATIONS
 CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
 
 # END MODULE.
-# print "MMM, Mmm, mmm! That WAS some tasty data!"
+print ("Completed msg.py.")
+print ("MMM, Mmm, mmm! That WAS some tasty scalar data!")
+print ("Have a nice day!")
+print (" ")
