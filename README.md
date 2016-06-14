@@ -9,10 +9,9 @@
 > _Contact_: jgentle@tacc.utexas.edu
 
 ### What is msg.py?
-Python script to combine input files for MODFLOW 96 and regenerate the selected iputs.
+Msg.py is a python script to regenerate specific selected scalar inputs for MODFLOW 96 scenarios.
 
-### Target use case
-For use in generating new wel.dat input files based on predetermined scalar values.
+The script takes the targeted GAM's baseline wells.dat file and an exported tablelink data file from the targeted GAM's shapefile and combines them with a set of pre-determined scalar input values for the Model to generate a new set of candidate solution input wel.dat files for use in MODFLOW 96.
 
 ### Directory Structure
 The msg.py script expects the following directory structure to exist:
