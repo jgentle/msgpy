@@ -32,7 +32,7 @@ Release Date: 2016.06.06
 
 ---
 ### v.0.1.3
-Release Date: 2016.02.29
+Release Date: 2016.04.07
 
 ##### Added
 - Additional cleanup on configurable parameters.
@@ -45,7 +45,7 @@ Release Date: 2016.02.29
 
 ---
 ### v.0.1.2
-Release Date: 2016.02.26
+Release Date: 2016.02.29
 
 ##### Added
 - Nothing.
@@ -58,7 +58,7 @@ Release Date: 2016.02.26
 
 ---
 ### v.0.1.1
-Release Date: 2016.02.16
+Release Date: 2016.02.26
 
 ##### Added
 - Added output directory and empty file to keep directory in repo.
@@ -71,6 +71,7 @@ Release Date: 2016.02.16
 
 ---
 ### v.0.1.0
+Release Date: 2016.02.16
 
 ##### Added
 - Initial commit of basic script with hardcoded inputs, outputs and values.
