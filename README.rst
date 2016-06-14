@@ -1,5 +1,9 @@
-# MSG.PY 
-### Modflow Scalar Generation for Python
+========
+MSG.PY 
+========
+
+Modflow Scalar Generation for Python
+====================================
 ```\
 _Version_: v.1.1.0
 _Updated_: 2016.06.14
@@ -68,7 +72,40 @@ Alternatively (after running _$ chmod +x msg.py_):
 #### Enjoy your tasty data!
 
 
+===============
+ Section Title
+===============
 
+---------------
+ Section Title
+---------------
+
+Section Title
+=============
+
+Section Title
+-------------
+
+Section Title
+`````````````
+
+Section Title
+'''''''''''''
+
+Section Title
+.............
+
+Section Title
+~~~~~~~~~~~~~
+
+Section Title
+*************
+
+Section Title
++++++++++++++
+
+Section Title
+^^^^^^^^^^^^^
 
 
 
