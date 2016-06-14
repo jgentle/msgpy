@@ -35,19 +35,14 @@ The msg.py script expects the following directory structure to exist:
         |-- README.md
         |-- .gitignore
 
-### Script Inputs
 The msg.py script expects to find specific files in these locations.
+
+### Script Inputs
 The input files required are as follows:
 
-    - wells         (the base wells.dat file used by MODFLOW 96 for scenario)
+    - wells         (the base wells.dat file used by MODFLOW 96 for the scenario)
     - tablelinks    (the linkage table data extracted from GAM shape file to connect wells with cells by zone)
     - scalars       (the input values for multiplying well values in corresponding cells)
-
-### Script Arguments
-The msg.py script is configurable and expects arguments (in this specific order) for:
-    - wells
-    - tablelinks
-    - scalars
 
 ### Script Configs
 You must edit the headers for the SCALAR and TABLELINK files to match your input data structure.
@@ -56,6 +51,13 @@ By default, they are defined as follows:
     scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
     tablelink_headers = ['Row', 'Col', 'Kzone']
 
+### Script Arguments
+The msg.py script is configurable and expects arguments (in this specific order) for:
+
+    - wells
+    - tablelinks
+    - scalars
+    
 ### Script Execution
 To run the msg.py script you can execute either of the following commands:
 
