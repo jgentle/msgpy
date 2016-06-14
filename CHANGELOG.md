@@ -1,5 +1,4 @@
 # Change Log
-
 Any notable changes to the msg.py script will be documented here.
 Changes are added in descending order from most recent to oldest.
 
@@ -17,7 +16,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Hardcoded references to inputs and outputs. 
 
-___
+---
 ### v.0.1.3
 
 ##### Added
@@ -29,7 +28,7 @@ ___
 ##### Removed
 - Nothing.
 
-*** 
+---
 ### v.0.1.2
 
 ##### Added
