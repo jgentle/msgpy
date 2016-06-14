@@ -4,6 +4,7 @@ Changes are added in descending order from most recent to oldest.
 
 ---
 ### v.0.1.5
+Release Date: 2016.06.14
 
 ##### Added
 - Script now has default argument values and can accept optional arguments to override default values.
@@ -16,6 +17,7 @@ Changes are added in descending order from most recent to oldest.
 
 ---
 ### v.0.1.4
+Release Date: 2016.06.06
 
 ##### Added
 - Scripts to launch msg.py under Slurm or Parametric Launcher.
@@ -30,6 +32,7 @@ Changes are added in descending order from most recent to oldest.
 
 ---
 ### v.0.1.3
+Release Date: 2016.02.29
 
 ##### Added
 - Additional cleanup on configurable parameters.
@@ -42,6 +45,7 @@ Changes are added in descending order from most recent to oldest.
 
 ---
 ### v.0.1.2
+Release Date: 2016.02.26
 
 ##### Added
 - Nothing.
@@ -54,6 +58,7 @@ Changes are added in descending order from most recent to oldest.
 
 ---
 ### v.0.1.1
+Release Date: 2016.02.16
 
 ##### Added
 - Added output directory and empty file to keep directory in repo.
