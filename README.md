@@ -3,9 +3,6 @@
 
 Version: **v.1.1.0** | 
 Updated: **2016.06.14** | 
-Author: **John Gentle** | 
-Contact: **jgentle@tacc.utexas.edu**
-
 
 ### What is msg.py?
 Msg.py is a python script to regenerate specific selected scalar inputs for MODFLOW 96 scenarios.
@@ -66,6 +63,7 @@ Alternatively (after running _$ chmod +x msg.py_):
     $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
 
 #### **_Enjoy your tasty data! =)_**
+
 
 
 
