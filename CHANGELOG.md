@@ -8,10 +8,10 @@ Changes are added in descending order from most recent to oldest.
 ##### Added
 - Scripts to launch msg.py under Slurm or Parametric Launcher.
 - Scripts to pre-process scalar data file for parallelized processing across multiple nodes.
-- References to additional post-processing scripts that will need to be generated. 
+- References and additional post-processing scripts that will need to be generated. 
 
 ##### Changed
-- Refactor of script to accept arguments for inputs and outputs. 
+- Refactor of script to accept ordered arguments for inputs. 
 
 ##### Removed
 - Hardcoded references to inputs and outputs. 
