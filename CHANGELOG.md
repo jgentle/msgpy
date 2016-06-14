@@ -3,6 +3,7 @@
 Any notable changes to the msg.py script will be documented here.
 Changes are added in descending order from most recent to oldest.
 
+---
 ### v.0.1.4
 
 ##### Added
@@ -16,6 +17,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Hardcoded references to inputs and outputs. 
 
+---
 ### v.0.1.3
 
 ##### Added
@@ -27,6 +29,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Nothing.
 
+---
 ### v.0.1.2
 
 ##### Added
@@ -38,6 +41,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Extraneous files littering project.
 
+---
 ### v.0.1.1
 
 ##### Added
@@ -49,6 +53,7 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Nothing.
 
+---
 ### v.0.1.0
 
 ##### Added
@@ -64,5 +69,5 @@ Changes are added in descending order from most recent to oldest.
 ##### Removed
 - Nothing.
 
-
+---
 
