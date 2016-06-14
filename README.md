@@ -1,10 +1,10 @@
 # MSG.PY 
 ### Modflow Scalar Generation for Python
 
-_Version_: v.1.1.0 | 
-_Updated_: 2016.06.14 | 
-_Author_: John Gentle | 
-_Contact_: jgentle@tacc.utexas.edu
+*Version*: v.1.1.0 | 
+*Updated*: 2016.06.14 | 
+*Author*: John Gentle | 
+*Contact*: jgentle@tacc.utexas.edu
 
 
 ### What is msg.py?
