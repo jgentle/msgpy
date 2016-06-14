@@ -1,6 +1,6 @@
 # MSG.PY 
 ### Modflow Scalar Generation for Python
-```
+```\
 _Version_: v.1.1.0
 _Updated_: 2016.06.14
 _Author_: John Gentle 
