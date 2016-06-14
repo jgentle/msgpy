@@ -269,6 +269,7 @@ def CleanHeaderData(dirty_output_headers, clean_output_headers):
                 clean_output_row.append(item)
         clean_output_headers.append(clean_output_row)
 
+
 ############################################################
 """
 TODO: CALCULATE SCALARS
@@ -283,6 +284,7 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
     # ALGORITHM
     for scalar_series in scalars_data:
+        print ("Grabbing the next scalar to prepare...")
         new_wells_data = []
 
         # get a ref to the sourcedata run hash.
@@ -359,8 +361,10 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
         # Write the final wells data object to the new file.
         WriteWellsListToCSV(csv_output_location, new_wells_filename, wells_headers, new_wells_data, clean_wells_output_headers)
+        print ("Another delicious scalar served up fresh!")
 
 
+############################################################
 # START MODULE.
 print (" ")
 print ("Starting msg.py...")
@@ -373,17 +377,12 @@ LogVariables()
 LogConfigs()
 
 print "Here we go! Calculating some tasty new scalar data!"
-print ("Cooking the data... ")
-print (" ")
-
-############################################################
-# STOP SCRIPT
-# Development Only.
-sys.exit()
+print ("Heating up the pot... ")
 
 # LOAD DATA SOURCES.
 
-# WELLS
+# WELLS DATA
+print ("Whisking in wells data... ")
 wells_data = ReadCSVasList(csv_wells)
 
 # Trim headers from wells data
@@ -398,31 +397,33 @@ wells_data.pop(0)
 
 # Get a reference to the per run subheader values needed to filter out during run processing.
 wells_run_subheader.append(wells_data[0])
-# print wells_run_subheader
 
 # Cleanup subheader data for writing later.
 CleanHeaderData(wells_run_subheader, clean_wells_run_subheader)
-# print clean_wells_run_subheader
-
-# SCALARS
-ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 
 # TABLELINK
+print ("Tasting the tablelinks data... ")
 ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 
-print ("Seasoning the data... ")
-print ("Come and see what the python has cookin!")
-print (" ")
+# SCALARS
+print ("Simmering the scalars data... ")
+ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 
-############################################################
+######################
 # STOP SCRIPT
 # Development Only.
-sys.exit()
+# Remove afterward.
+# sys.exit()
+######################
 
 # RUN CALCULATIONS
+print ("Seasoning the data...")
+print ("A watched pot never boils so don't rush me, these things take time!")
+print (" ")
 CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
 
 # END MODULE.
+print (" ")
 print ("Completed msg.py.")
 print ("MMM, Mmm, mmm! That WAS some tasty scalar data!")
 print ("Have a nice day!")
