@@ -65,7 +65,8 @@ Alternatively (after running _$ chmod +x msg.py_):
 
     $ ./msg.py WELLS.CSV TABLELINKS.CSV SCALARS.CSV
 
-#### Enjoy your tasty data!
+#### **_Enjoy your tasty data!_**
+
 
 
 
