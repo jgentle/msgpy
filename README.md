@@ -8,15 +8,13 @@
 
 > Contact: jgentle@tacc.utexas.edu
 
-## What is msg.py?
+### What is msg.py?
 Python script to combine input files for MODFLOW 96 and regenerate the selected iputs.
 
-## Target use case
+### Target use case
 For use in generating new wel.dat input files based on predetermined scalar values.
 
-## General Usage
-
-### Organization
+### Directory Structure
 The msg.py script expects the following directory structure to exist:
 
     | msg.py_root/
