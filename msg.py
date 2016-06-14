@@ -9,47 +9,60 @@ Python script to combine input files for MODFLOW 96 and regenerate the selected 
 See README for usage instructions.
 """
 
-print (" ")
-print ("Starting msg.py...")
-print("Gathering ingredients... ")
-print (" ")
-
 import sys
 import getopt
+import argparse
 import os
 import csv
 from decimal import *
+
+############################################################
+"""
+TODO: ARGUMENTS
+Refactor argument inputs into a config file that can be maintained seperately.
+Load as a Parameter Object instead of parsing args.
+"""
+############################################################
 
 # ARGUMENTS
 sys.argv
 total = len(sys.argv)
 cmdargs = str(sys.argv)
-# print ("First argument: %s" % str(sys.argv[1]))
-# print ("Second argument: %s" % str(sys.argv[2]))
-# print ("Third argument: %s" % str(sys.argv[3]))
-# for i in xrange(total):
-#     print ("Argument # %d : %s" % (i, str(sys.argv[i])))
-
-# LOG ARGUMENTS
-print ("msg.py script arguments:")
-print ("-------------------------------")
-print ("The total numbers of args passed to the script: %d" % total)
-print ("Args list: %s" % cmdargs)
-print ("Script name: %s" % str(sys.argv[0]))
-print ("Wells file: %s" % str(sys.argv[1]))
-print ("Tablelinks file: %s" % str(sys.argv[2]))
-print ("Scalars filee: %s" % str(sys.argv[3]))
-print (" ")
 
 # Assigning input arg to processing chunk.
 csv_input_file_wells_arg = str(sys.argv[1])
 csv_input_file_tablelinks_arg = str(sys.argv[2])
 csv_input_file_scalars_arg = str(sys.argv[3])
 
+# ARGPARSE CONFIG
+__author__ = 'jgentle'
+parser = argparse.ArgumentParser(description='This is the msg.py MODFLOW 96 scalar generation script.')
+parser.add_argument('-id','--inputdir', help='Input directory path for wells and tablelinks data.',required=True)
+parser.add_argument('-dd','--datadir', help='Input directory path for scalars data.',required=True)
+parser.add_argument('-od','--outputdir',help='Output directory path.', required=True)
+parser.add_argument('-w','--wells', help='Input file for wells data.',required=True)
+parser.add_argument('-t','--tablelinks', help='Input file for tablelinks data.',required=True)
+parser.add_argument('-s','--scalars', help='Input file for scalars data.',required=True)
+# parser.add_argument('-wh','--wellsheaders', help='Headers for wells input data.',required=True)
+parser.add_argument('-th','--tablelinksheaders', help='Headers for tablelinks input data.',required=True)
+parser.add_argument('-sh','--scalarsheaders', help='Headers for scalars input data.',required=True)
+args = parser.parse_args()
+
+# LOG ARGS PARSER
+# print ("Input directory: %s" % args.inputdir )
+# print ("Data directory: %s" % args.datadir )
+# print ("Output directory: %s" % args.outputdir )
+# print ("Input wells file: %s" % args.wells )
+# print ("Input tablelinks file: %s" % args.tablelinks )
+# print ("Input scalars file: %s" % args.scalars )
+
 # SCRIPT PATHS
-csv_input_subdirectory = "/csv_input/"
-csv_data_subdirectory = "/csv_data/"
-csv_output_subdirectory = "/csv_output/"
+# csv_input_subdirectory = "/csv_input/"
+# csv_data_subdirectory = "/csv_data/"
+# csv_output_subdirectory = "/csv_output/"
+csv_input_subdirectory = args.inputdir
+csv_data_subdirectory = args.datadir
+csv_output_subdirectory = args.outputdir
 
 # SOURCE DATA INPUTS
 
@@ -59,30 +72,22 @@ csv_output_subdirectory = "/csv_output/"
 # csv_input_file_scalars = "scalars_0.csv"
 
 # Configured.
-csv_input_file_wells = csv_input_file_wells_arg
-csv_input_file_tablelinks = csv_input_file_tablelinks_arg
-csv_input_file_scalars = csv_input_file_scalars_arg
+# csv_input_file_wells = csv_input_file_wells_arg
+# csv_input_file_tablelinks = csv_input_file_tablelinks_arg
+# csv_input_file_scalars = csv_input_file_scalars_arg
+csv_input_file_wells = args.wells
+csv_input_file_tablelinks = args.tablelinks
+csv_input_file_scalars = args.scalars
 
-# DATA Configs
-scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
-tablelink_headers = ['Row', 'Col', 'Kzone']
+# Dynamic Configs.
+# scalars_headers = ['sourceFile', 'CZ1', 'CZ2', 'CZ3', 'CZ4', 'CZ5', 'CZ6', 'CZ7', 'CZ8', 'CZ9', 'CZ10', 'CZ11']
+# tablelink_headers = ['Row', 'Col', 'Kzone']
+scalars_headers = args.scalarsheaders
+tablelink_headers = args.tablelinksheaders
 
-# LOG VARS
-print ("msg.py script variables:")
-print ("-------------------------------")
-# print ("Input chunk file: %s" % csv_input_file_scalars_arg)
-print ("csv_input_subdirectory: %s" % csv_input_subdirectory)
-print ("csv_data_subdirectory: %s" % csv_data_subdirectory)
-print ("csv_output_subdirectory: %s" % csv_output_subdirectory)
-
-print ("csv_input_file_wells: %s" % csv_input_file_wells)
-print ("csv_input_file_tablelinks: %s" % csv_input_file_tablelinks)
-print ("csv_input_file_scalars: %s" % csv_input_file_scalars)
-print ("scalar_headers: %s" % scalars_headers)
-print ("tablelink_headers: %s" % tablelink_headers)
-print (" ")
-
+############################################################
 # DO NOT EDIT BEYOND THIS POINT!!!
+############################################################
 
 # MODULE VARIABLES
 currentPath = os.getcwd()
@@ -102,29 +107,82 @@ csv_wells = csv_input_location + csv_input_file_wells
 csv_scalars = csv_data_location + csv_input_file_scalars
 csv_tablelink = csv_input_location + csv_input_file_tablelinks
 
-# LOG CONFIG
-print ("msg.py script configuration:")
-print ("-------------------------------")
-print ("currentPath: %s" % currentPath)
-print ("csv_input_location: %s" % csv_input_location)
-print ("csv_data_location: %s" % csv_data_location)
-print ("csv_output_location: %s" % csv_output_location)
-print ("wells_headers: %s" % wells_headers)
-print ("scalars_data: %s" % scalars_data)
-print ("tablelink_data: %s" % tablelink_data)
-print ("wells_output_headers: %s" % wells_output_headers)
-print ("clean_wells_output_headers: %s" % clean_wells_output_headers)
-print ("wells_run_subheader: %s" % wells_run_subheader)
-print ("clean_wells_run_subheader: %s" % clean_wells_run_subheader)
-print ("csv_wells: %s" % csv_wells)
-print ("csv_scalars: %s" % csv_scalars)
-print ("csv_tablelink: %s" % csv_tablelink)
-print (" ")
-
-# STOP SCRIPT BEFORE EXECUTION
-sys.exit()
 
 # MODULE METHODS
+
+# LOG ARGUMENTS & OPTIONS
+def LogArguments():
+    print ("msg.py script arguments:")
+    print ("-------------------------------")
+    # print ("First argument: %s" % str(sys.argv[1]))
+    # print ("Second argument: %s" % str(sys.argv[2]))
+    # print ("Third argument: %s" % str(sys.argv[3]))
+    # for i in xrange(total):
+    #     print ("Argument # %d : %s" % (i, str(sys.argv[i])))
+    print ("The total numbers of args passed to the script: %d" % total)
+    print ("Args list: %s" % cmdargs)
+    print ("Script name: %s" % str(sys.argv[0]))
+    print ("Wells file: %s" % str(sys.argv[1]))
+    print ("Tablelinks file: %s" % str(sys.argv[2]))
+    print ("Scalars filee: %s" % str(sys.argv[3]))
+    print (" ")
+    return
+
+def LogArgsParser():
+    print ("msg.py script arguments:")
+    print ("-------------------------------")
+    print ("Input directory: %s" % args.inputdir )
+    print ("Data directory: %s" % args.datadir )
+    print ("Output directory: %s" % args.outputdir )
+    print ("Input wells file: %s" % args.wells )
+    print ("Input tablelinks file: %s" % args.tablelinks )
+    print ("Input scalars file: %s" % args.scalars )
+    # print ("Wells file headers: %s" % args.wellsheaders )
+    print ("Tablelinks file headers: %s" % args.tablelinksheaders )
+    print ("Scalars file headers: %s" % args.scalarsheaders )
+    print (" ")
+    return
+
+
+# LOG VARIABLES
+def LogVariables():
+    print ("msg.py script variables:")
+    print ("-------------------------------")
+    # print ("Input chunk file: %s" % csv_input_file_scalars_arg)
+    print ("csv_input_subdirectory: %s" % csv_input_subdirectory)
+    print ("csv_data_subdirectory: %s" % csv_data_subdirectory)
+    print ("csv_output_subdirectory: %s" % csv_output_subdirectory)
+    print ("csv_input_file_wells: %s" % csv_input_file_wells)
+    print ("csv_input_file_tablelinks: %s" % csv_input_file_tablelinks)
+    print ("csv_input_file_scalars: %s" % csv_input_file_scalars)
+    print ("tablelink_headers: %s" % tablelink_headers)
+    print ("scalar_headers: %s" % scalars_headers)
+    print (" ")
+    return
+
+
+# CONFIGURATION LOGGING
+def LogConfigs():
+    print ("msg.py script configuration:")
+    print ("-------------------------------")
+    print ("currentPath: %s" % currentPath)
+    print ("csv_input_location: %s" % csv_input_location)
+    print ("csv_data_location: %s" % csv_data_location)
+    print ("csv_output_location: %s" % csv_output_location)
+    print ("wells_headers: %s" % wells_headers)
+    print ("scalars_data: %s" % scalars_data)
+    print ("tablelink_data: %s" % tablelink_data)
+    print ("wells_output_headers: %s" % wells_output_headers)
+    print ("clean_wells_output_headers: %s" % clean_wells_output_headers)
+    print ("wells_run_subheader: %s" % wells_run_subheader)
+    print ("clean_wells_run_subheader: %s" % clean_wells_run_subheader)
+    print ("csv_wells: %s" % csv_wells)
+    print ("csv_tablelink: %s" % csv_tablelink)
+    print ("csv_scalars: %s" % csv_scalars)
+    print (" ")
+    return
+
+
 # HANDLING LISTS
 def ReadCSVasList(csv_file):
     try:
@@ -229,11 +287,13 @@ def CleanHeaderData(dirty_output_headers, clean_output_headers):
                 clean_output_row.append(item)
         clean_output_headers.append(clean_output_row)
 
+############################################################
 """
-TODO:
+TODO: CALCULATE SCALARS
     Decouple the hardcoded header values from within the module.
     Should reference the header values defined in the variables section.
 """
+############################################################
 
 # CALCULATE SCALARS.
 def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data):
@@ -319,9 +379,24 @@ def CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_
 
 
 # START MODULE.
+print (" ")
+print ("Starting msg.py...")
+print("Gathering ingredients... ")
+print (" ")
+
+# LogArguments()
+LogArgsParser()
+LogVariables()
+LogConfigs()
+
 print "Here we go! Calculating some tasty new scalar data!"
 print ("Cooking the data... ")
 print (" ")
+
+############################################################
+# STOP SCRIPT
+# Development Only.
+sys.exit()
 
 # LOAD DATA SOURCES.
 
@@ -353,7 +428,13 @@ ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 ReadCSVasDict(csv_tablelink, tablelink_headers, tablelink_data)
 
 print ("Seasoning the data... ")
+print ("Come and see what the python has cookin!")
 print (" ")
+
+############################################################
+# STOP SCRIPT
+# Development Only.
+sys.exit()
 
 # RUN CALCULATIONS
 CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
