@@ -418,7 +418,7 @@ ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 
 # RUN CALCULATIONS
 print ("Seasoning the data...")
-print ("A watched pot never boils so don't rush me, these things take time!")
+print ("(pssst! A watched pot never boils so grab a coffee, these things take time!)")
 print (" ")
 CalculateScalarsPerRun(scalars_headers, scalars_data, wells_data, tablelink_headers, tablelink_data)
 
