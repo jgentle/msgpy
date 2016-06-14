@@ -1,7 +1,7 @@
 # Change Log
 
 Any notable changes to the msg.py script will be documented here.
-Note that changes are added in descending order from most recent to oldest.
+Changes are added in descending order from most recent to oldest.
 
 ## v.0.1.4
 
