@@ -156,9 +156,13 @@ class CSV_Monster:
 # 9383 rows in master file.
 # Running script across 96 cores.
 # Need to split input file at each 98th line.
-csv_source_filename = "csv_input/scalars_0.csv"
-csv_output_filename = "csv_split/scalar-inputs-chunk-{}.csv"
-csv_split_line = 98
+csv_source_filename = "../csv_input/scalars.csv"
+csv_output_filename = "../csv_data_192chunks/scalar-inputs-chunk-{}.csv"
+# split value determines the number of chunks based on the number of lines in the scalars.csv file.
+# Example: If scalars.csv has 9383 lines:
+# 98 == 96 chunks
+# 49 == 192 chunks
+csv_split_line = 49     
 
 csv_monster = CSV_Monster(csv_source_filename, 1, save_name=csv_output_filename)
 csv_monster.split(csv_split_line)
