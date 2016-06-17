@@ -413,7 +413,7 @@ ReadCSVasDict(csv_scalars, scalars_headers, scalars_data)
 # STOP SCRIPT
 # Development Only.
 # Remove afterward.
-# sys.exit()
+sys.exit()
 ######################
 
 # RUN CALCULATIONS
