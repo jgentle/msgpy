@@ -1,1 +1,2 @@
-./msgpy 
+./msgpy -dd '/csv_data_192chunks/' -s 'scalar-inputs-chunk-1.csv'
+./msgpy -dd '/csv_data_192chunks/' -s 'scalar-inputs-chunk-2.csv'
