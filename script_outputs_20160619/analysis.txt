@@ -1,0 +1,62 @@
+Analysis of intitial scalar generation run on 8 nodes.
+
+----------------------------
+General:
+
+Need better data calculation for size requirements:
+
+    - Scalar files:
+        -- 9383 scalars expected 
+        -- 13 Mb per file
+        -- 9383 * 13 Mb = 121,979 Mb / 1024 = 119.120117 Gb
+        * round up to account for some size overage by about 25%
+        == Need 150 Gb for scalars
+
+    - Output files:
+        -- 9383 runs expected 
+        -- 3 key output files per run
+        -- 35 Mb per output file (+ smaller files est. )
+        -- 9383 * 115 Mb = 1,079,045 Mb / 1024 = 1,053.75488 Gb
+        * round up to account for some size overage by about 25%
+        == Need 1320 Gb
+
+    - Postprocessed Analtytics:
+        -- TBD
+        -- TBD
+        * round up to account for some size overage by about 25%
+        == Need ???
+
+    - Total Size: 
+        - Scalars = 150 Gb 
+        - Simulation Runs: 1320 Gb
+        - Postprocessed Analaticics = ??? Gb
+
+    ** Final Size Estimate: 150 Gb + 1320 Gb + ??? Gb =1470 Gb (+ ??? Gb)
+
+----------------------------
+Issues & Solutions:
+
+I) Accidentally ran the job on $WORK.
+S)Move runs to $DATA for generation, or $SCRATCH.
+
+I) Incorrectly estimated data output sze.
+S) Hit 100 Gb limit which could kill the job.
+
+
+----------------------------
+Questions:
+
+1) Need to identify why the script only produced 8894 scalar inputs.
+
+2) Need a script to validate the number of output files against the number of input scalars stipulated.
+
+3) Need to create a script to generate the input files required for modflow:
+    - Each interpretation file (rch) must be replaced for each of the four sets
+    - Each scalars file (wel) must be replced for each of the 9383 runs in a set
+
+4) Need to start a script to parse the modflow output:
+    - Can use test BSGAM output to write script.
+
+5) 
+
+
