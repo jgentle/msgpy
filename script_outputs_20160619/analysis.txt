@@ -37,7 +37,7 @@ Need better data calculation for size requirements:
 Issues & Solutions:
 
 I) Accidentally ran the job on $WORK.
-S)Move runs to $DATA for generation, or $SCRATCH.
+S) Move runs to $DATA for generation, or $SCRATCH.
 
 I) Incorrectly estimated data output sze.
 S) Hit 100 Gb limit which could kill the job.
