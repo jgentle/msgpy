@@ -17,7 +17,7 @@
 #SBATCH -n 24                       # Total number of tasks (Is this cores?)
 #SBATCH -p normal                   # Queue name
 #SBATCH -o Parametric.o_%j          # Name of stdout output file (%j expands to jobid)
-#SBATCH -t 72:00:00                 # Run time (hh:mm:ss)
+#SBATCH -t 48:00:00                 # Run time (hh:mm:ss)
 #
 # <------------ Account String ------------>
 # <--- (Use this ONLY if you have MULTIPLE accounts) --->
