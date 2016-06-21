@@ -12,12 +12,12 @@
 #-------------------------------------------------------
 #
 #------------------Scheduler Options--------------------
-#SBATCH -J Parametric               # Job name
-#SBATCH -N 10                       # Total number of nodes (24 cores/node)
+#SBATCH -J msgpy-scalar-nu8         # Job name
+#SBATCH -N 8                        # Total number of nodes (24 cores/node)
 #SBATCH -n 24                       # Total number of tasks (Is this cores?)
 #SBATCH -p normal                   # Queue name
 #SBATCH -o Parametric.o_%j          # Name of stdout output file (%j expands to jobid)
-#SBATCH -t 96:00:00                 # Run time (hh:mm:ss)
+#SBATCH -t 72:00:00                 # Run time (hh:mm:ss)
 #
 # <------------ Account String ------------>
 # <--- (Use this ONLY if you have MULTIPLE accounts) --->
@@ -40,7 +40,7 @@ module load python
 export TACC_LAUNCHER_PPN=24
 export EXECUTABLE=$TACC_LAUNCHER_DIR/init_launcher
 export WORKDIR=.
-export CONTROL_FILE=paramlist
+export CONTROL_FILE=paramlist.192
 
 # Variable descriptions:
 #
