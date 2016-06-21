@@ -151,18 +151,30 @@ class CSV_Monster:
 #                                   skips=set((2, 9, 10, 22, 27, 28, 29, 33)))
 #         csv_monster.run()
 
+csv_source_filename = "../csv_input/scalars.csv"
 
 # Splitting files for MSG.PY
-# 9383 rows in master file.
-# Running script across 96 cores.
-# Need to split input file at each 98th line.
-csv_source_filename = "../csv_input/scalars.csv"
-csv_output_filename = "../csv_data_192chunks/scalar-inputs-chunk-{}.csv"
-# split value determines the number of chunks based on the number of lines in the scalars.csv file.
-# Example: If scalars.csv has 9383 lines:
-# 98 == 96 chunks
-# 49 == 192 chunks
-csv_split_line = 49     
+# 
+# When running script across multiple nodes and cores, you need to split the input file at each nth line.
+# The split value determines the number of chunks based on the number of lines in the scalars.csv file.
+# 
+# Formula:
+# 1) NUMBER_NU * NUMBER_CORES = NUMBER_CHUNKS_NEEDED
+# 2) NUMBER_SCALARS / NUMBER_CHUNKS_NEEDED = SPLIT_LINE_VALUE 
+#
+# Example for 9382 Scalars:
+# 
+# 4 NUs:
+# csv_split_line = 98           # 96 chunks   
+# csv_output_filename = "../csv_data_96chunks/scalar-inputs-chunk-{}.csv"
+#
+# 8 NUs:
+# csv_split_line = 49           # 192 chunks 
+# csv_output_filename = "../csv_data_192chunks/scalar-inputs-chunk-{}.csv"
+#
+# 10 NUs:
+csv_split_line = 40           # 235 chunks NOTE: 39 resultes in a small remainder over 240, thus is too small a division.
+csv_output_filename = "../csv_data_240chunks/scalar-inputs-chunk-{}.csv"
 
 csv_monster = CSV_Monster(csv_source_filename, 1, save_name=csv_output_filename)
 csv_monster.split(csv_split_line)
