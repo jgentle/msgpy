@@ -1,0 +1,7 @@
+
+Lmod is automatically replacing "gcc/4.9.1" with "intel/15.0.3"
+
+
+Due to MODULEPATH changes the following have been reloaded:
+  1) mvapich2/2.1
+
